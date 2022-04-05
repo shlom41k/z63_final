@@ -8,4 +8,5 @@ class IndexView(View):
     # Return home page
     """
     def get(self, request, *args, **kwargs):
-        return render(request, "templates/home.html")
+        return render(request, "templates/base.html")
+
