@@ -1,10 +1,10 @@
 # my_auth.urls file
 
 from django.urls import path
-from .views import IndexView
+from .views import MainView
 
 
 urlpatterns = [
-    path('', IndexView.as_view(), name="news_index"),
+    path('', MainView.as_view(), name="news_index"),
 ]
 
