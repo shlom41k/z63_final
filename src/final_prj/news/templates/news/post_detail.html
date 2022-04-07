@@ -1,0 +1,46 @@
+{% extends 'templates/base.html' %}
+
+
+{% load static %}
+
+<!--Title-->
+{% block title %}{{ post.title }}{% endblock %}
+
+<!--Header-->
+{% block header %}
+    {% include 'templates/block/header.html' %}
+{% endblock %}
+
+<!--Content-->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb" class="mt-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'news_index' %}">Все новости</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ post.header_h1 }}</li>
+                </ol>
+            </nav>
+            <img class="img-fluid rounded " src="{{ post.image.url }}" alt="">
+            <hr>
+
+            <p class="lead">{{ post.content|safe }}</p>
+            <hr>
+
+            <p class="lead text-right">Автор: {{ post.author }}</p>
+            <hr>
+
+            <p class="text-right">Опубликовано {{ post.date_of_creating }}</p>
+            <hr>
+
+            <!--Comments-->
+            {% include './block/comments.html' %}
+
+        </div>
+
+        <!--Right side block-->
+        {% include './block/aside.html' %}
+    </div>
+</div>
+{% endblock %}
