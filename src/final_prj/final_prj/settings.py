@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'auth_app',
     'news',
     'contacts_app',
+    'teachers_app',
     'ckeditor',
     'ckeditor_uploader',
 ]

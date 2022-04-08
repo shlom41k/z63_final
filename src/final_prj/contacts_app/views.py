@@ -25,7 +25,7 @@ class FeedBackView(View):
             message = form.cleaned_data['message']
 
             try:
-                send_mail(f'От {name} | {subject}', message, from_email, ['amromashov@gmail.com'])
+                send_mail(f'От {name} | {subject}', message, from_email, ['ZerGey1994MU@mail.ru'])
             except BadHeaderError:
                 return HttpResponse('Невалидный заголовок')
 
