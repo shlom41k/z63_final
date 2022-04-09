@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'news',
     'contacts_app',
     'teachers_app',
+    'courses_app',
     'ckeditor',
     'ckeditor_uploader',
+    'taggit',
 ]
 
 MIDDLEWARE = [

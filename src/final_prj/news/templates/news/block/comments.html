@@ -1,19 +1,71 @@
 <div class="card my-4">
-    <h5 class="card-header">Прокомментируй:</h5>
+    <h5 class="card-header">Прокомментируйте:</h5>
+    {% if user.is_authenticated %}
     <div class="card-body">
-        <form>
+
+<!--    Comment form-->
+        <form method="POST">
+            {% csrf_token %}
             <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
+                {{ form.text }}
             </div>
             <button type="submit" class="btn btn-primary">Отправить</button>
         </form>
+
     </div>
+    {% else %}
+    <h6 class="card-header"><a href="{% url 'signin' %}">Авторизуйтесь</a> или <a href="{% url 'signup' %}">зарегистрируйтесь</a> чтобы оставить комментарий</h6>
+    {% endif %}
 </div>
 
+{% for comment in post.comments.all %}
 <div class="media mb-4">
-    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+
+
+
+    <img class="d-flex mr-3 rounded-circle" src="https://pngimg.com/uploads/circle/circle_PNG33.png" alt="Text" style="width:60px; height:60px">
+
     <div class="media-body">
-        <h5 class="mt-0">Дуся Иванова</h5>
-        Мое очень важное мнение по данной статье. Мое очень важное мнение по данной статье. Мое очень важное мнение по данной статье. Мое очень важное мнение по данной статье. Мое очень важное мнение по данной статье.
+<!--        <small class="d-flex justify-content-end">{{comment.date_of_creating}}</small>-->
+        <div class="d-flex">
+          <div class="align-items-start"><h5 class="mt-0">{{ comment.author }}</h5></div>
+          <div class="justify-content-end ml-auto">{{ comment.date_of_creating }}</div>
+        </div>
+<!--        <h5 class="mt-0">{{comment.author}}</h5>-->
+        {{comment.text}}
+
+<!--        <div class="d-flex align-items-end flex-column p-2">-->
+<!--            <small>{{comment.date_of_creating}}</small>-->
+<!--        </div>-->
+
+
+
+
+        {% for answer in comment.answers.all %}
+        <div class="media mt-3">
+<!--            <a class="pr-3" href="#"><img src="..." alt="Generic placeholder image"></a>-->
+            <img class="d-flex mr-3 rounded-circle" src="https://pngimg.com/uploads/circle/circle_PNG33.png" alt="Text" style="width:60px; height:60px">
+            <div class="media-body">
+                <h6 class="mt-0">{{ answer.author }}</h6>
+                <text>{{ answer.text }}</text>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <small>{{ answer.date_of_creating }}</small>
+            </div>
+
+        </div>
+        {% endfor %}
+
+                <div class="d-flex justify-content-end">
+            <a href="#">Ответить</a>
+        </div>
+
+
     </div>
+
 </div>
+
+
+<hr>
+{% endfor %}

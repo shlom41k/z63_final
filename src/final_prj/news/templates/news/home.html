@@ -22,7 +22,12 @@
             <img src="../media/{{ post.image }}" alt="" class="card-img-top">
             <div class="card-body">
               <h4 class="card-title">{{ post.header_h1 }}</h4>
-              {{ post.description|safe|truncatechars:200 }}
+              {{ post.description|safe|truncatechars:200 }}<br>
+
+              {% for tag in post.tag.all %}
+                  <a href="{% url 'news_tag' tag.slug %}" class="mr-1 badge badge-info">#{{ tag }}</a>
+              {% endfor %}
+
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a href="{% url 'news_detail' slug=post.slug %}" class="btn btn-sm btn-outline-secondary">Подробнее</a>

@@ -25,13 +25,21 @@
             <img class="img-fluid rounded " src="{{ post.image.url }}" alt="">
             <hr>
 
+            <!--Post content-->
             <p class="lead">{{ post.content|safe }}</p>
+
+            <!--Post tags-->
+            <div class="d-flex justify-content-end">
+                {% for tag in post.tag.all %}
+                    <a href="{% url 'news_tag' tag.slug %}" class="mr-1 badge badge-info">#{{ tag }}</a>
+                {% endfor %}
+            </div>
             <hr>
 
-            <p class="lead text-right">Автор: {{ post.author }}</p>
-            <hr>
-
-            <p class="text-right">Опубликовано {{ post.date_of_creating }}</p>
+            <div class="d-flex">
+                <div class="mr-auto p-2 lead">Автор: {{ post.author }}</div>
+                <div class="p-2">Опубликовано: {{ post.date_of_creating }}</div>
+            </div>
             <hr>
 
             <!--Comments-->

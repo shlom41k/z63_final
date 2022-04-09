@@ -4,6 +4,8 @@ from django.utils import timezone
 
 from ckeditor_uploader.fields import RichTextUploadingField
 
+from taggit.managers import TaggableManager
+
 
 class Post(models.Model):
     """
@@ -18,10 +20,50 @@ class Post(models.Model):
     image = models.ImageField(verbose_name="Image")
     date_of_creating = models.DateField(verbose_name="Date of creating", default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    tag = models.CharField(verbose_name="Tags", max_length=200)
+    tag = TaggableManager()
 
     def __str__(self):
         return f"{self.title}"
+
+    def __repr__(self):
+        return self.__str__()
+
+
+class Comment(models.Model):
+    """
+    # Class for comments
+    """
+
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    text = models.TextField(verbose_name="Comment")
+    date_of_creating = models.DateTimeField(verbose_name="Date of creating", default=timezone.now)
+
+    class Meta:
+        ordering = ["-date_of_creating"]
+
+    def __str__(self):
+        return f"{self.author} - {self.text}"
+
+    def __repr__(self):
+        return self.__str__()
+
+
+class CommentAnswer(models.Model):
+    """
+    # Class for answers to comments
+    """
+
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="answers")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments_answers")
+    text = models.TextField(verbose_name="Answer")
+    date_of_creating = models.DateTimeField(verbose_name="Date of creating", default=timezone.now)
+
+    class Meta:
+        ordering = ["-date_of_creating"]
+
+    def __str__(self):
+        return f"{self.author} - {self.text}"
 
     def __repr__(self):
         return self.__str__()
