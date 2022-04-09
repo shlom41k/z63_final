@@ -60,7 +60,7 @@ class CommentAnswer(models.Model):
     date_of_creating = models.DateTimeField(verbose_name="Date of creating", default=timezone.now)
 
     class Meta:
-        ordering = ["-date_of_creating"]
+        ordering = ["date_of_creating"]
 
     def __str__(self):
         return f"{self.author} - {self.text}"

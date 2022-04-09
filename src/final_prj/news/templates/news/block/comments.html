@@ -34,12 +34,6 @@
 <!--        <h5 class="mt-0">{{comment.author}}</h5>-->
         {{comment.text}}
 
-<!--        <div class="d-flex align-items-end flex-column p-2">-->
-<!--            <small>{{comment.date_of_creating}}</small>-->
-<!--        </div>-->
-
-
-
 
         {% for answer in comment.answers.all %}
         <div class="media mt-3">
@@ -57,7 +51,7 @@
         </div>
         {% endfor %}
 
-                <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end">
             <a href="#">Ответить</a>
         </div>
 
