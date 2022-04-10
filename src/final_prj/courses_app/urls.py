@@ -1,11 +1,12 @@
 # courses_app.urls file
 
 from django.urls import path
-from .views import CoursesView
+from .views import SchoolCoursesView, SchoolCourseDetailView
 
 
 urlpatterns = [
-    path("", CoursesView.as_view(), name="courses"),
+    path("", SchoolCoursesView.as_view(), name="school_courses"),
+    path("<slug>/", SchoolCourseDetailView.as_view(), name="school_course_detail"),
 ]
 
 

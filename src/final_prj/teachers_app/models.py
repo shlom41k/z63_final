@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.core.validators import EmailValidator
 from django.dispatch import receiver
+from django.utils.text import slugify
 
 from ckeditor_uploader.fields import RichTextUploadingField
 
@@ -11,7 +12,8 @@ class Teacher(models.Model):
     # Contact info
     first_name = models.CharField(max_length=50, verbose_name='First Name')
     last_name = models.CharField(max_length=50, verbose_name='Last Name')
-    photo = models.ImageField(verbose_name='Photo')
+    photo = models.ImageField(verbose_name='Photo', upload_to='school_teachers/')
+    slug = models.SlugField(max_length=50, unique=True, verbose_name='Slug')
 
     # About
     short_description = RichTextUploadingField(verbose_name="Description")
@@ -22,6 +24,12 @@ class Teacher(models.Model):
 
     def __repr__(self):
         return self.__str__()
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(f"{self.first_name} {self.last_name}")
+        super(self.__class__, self).save(*args, **kwargs)
+        # super(Teacher, self).save(*args, **kwargs)
 
 
 class TeacherContactInfo(models.Model):

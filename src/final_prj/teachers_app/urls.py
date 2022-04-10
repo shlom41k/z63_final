@@ -7,7 +7,7 @@ from .views import TeachersView, TeacherDetailView
 
 urlpatterns = [
     path("", TeachersView.as_view(), name="teachers"),
-    path("teacher/<int:teacher_id>", TeacherDetailView.as_view(), name="teacher_detail"),
+    path("<slug>/", TeacherDetailView.as_view(), name="teacher_detail"),
 ]
 
 

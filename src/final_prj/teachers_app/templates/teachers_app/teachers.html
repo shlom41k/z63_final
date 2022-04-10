@@ -33,7 +33,7 @@
         {% endif %}
         <h2>{{ teacher.first_name }} {{ teacher.last_name }}</h2>
         <p>{{ teacher.short_description|safe }}</p>
-        <p><a class="btn btn-secondary" href="{% url 'teacher_detail' teacher_id=teacher.pk %}">View details »</a></p>
+        <p><a class="btn btn-secondary" href="{% url 'teacher_detail' slug=teacher.slug %}">View details »</a></p>
       </div><!-- /.col-lg-4 -->
       {% endfor %}
 

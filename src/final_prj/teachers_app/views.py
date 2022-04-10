@@ -12,7 +12,7 @@ class TeachersView(View):
 
 
 class TeacherDetailView(View):
-    def get(self, request, teacher_id, *args, **kwargs):
-        teacher = get_object_or_404(Teacher, id=teacher_id)
+    def get(self, request, slug, *args, **kwargs):
+        teacher = get_object_or_404(Teacher, slug=slug)
 
         return render(request, 'teachers_app/teacher_detail.html', context={"title": "Преподаватель", "teacher": teacher})
