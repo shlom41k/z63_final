@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'contacts_app',
     'teachers_app',
     'courses_app',
+    'study_courses_app',
     'ckeditor',
     'ckeditor_uploader',
     'taggit',

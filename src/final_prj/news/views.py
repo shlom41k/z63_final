@@ -7,7 +7,7 @@ from django.db.models import Q
 from taggit.models import Tag
 
 from .models import Post, Comment
-from .forms import CommentForm
+from .forms import CommentForm, CommentAnswerForm
 
 
 class MainView(View):
@@ -42,11 +42,13 @@ class PostDetailView(View):
 
         # Form for comments
         comment_form = CommentForm()
+        comment_answer_form = CommentAnswerForm()
 
         return render(request, "news/post_detail.html", context={
             "post": post,
             "last_posts": last_posts,
             "form": comment_form,
+            "answer_form": comment_answer_form,
         })
 
     def post(self, request, slug, *args, **kwargs):

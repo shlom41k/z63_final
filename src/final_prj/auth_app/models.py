@@ -13,8 +13,9 @@ class Profile(models.Model):
     city = models.CharField(verbose_name="City", max_length=100, blank=True)
 
     # Messengers
-    telegram_link = models.URLField(verbose_name="Telegram", max_length=100, blank=True)
-    vk_link = models.URLField(verbose_name="VK", max_length=100, blank=True)
+    telegram_link = models.CharField(verbose_name="Telegram", max_length=100, blank=True)
+    vk_link = models.CharField(verbose_name="VK", max_length=100, blank=True)
+    instagram_link = models.CharField(verbose_name="Instagram", max_length=100, blank=True)
 
     # Learn progress
     UNKNOWN = "Unknown"

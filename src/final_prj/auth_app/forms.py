@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
 
+from .models import Profile
+
 
 class SigUpForm(forms.Form):
     username = forms.CharField(
@@ -116,3 +118,65 @@ class SignInForm(forms.Form):
             raise forms.ValidationError("Неверный пароль")
 
         return self.cleaned_data
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email"]
+        widgets = {
+            "first_name": forms.TextInput(attrs={
+                "label": "First name",
+                "class": "form-control",
+                "id": "first_name",
+                "placeholder": "First name",
+                "required": "required",
+            }),
+            "last_name": forms.TextInput(attrs={
+                "label": "Last name",
+                "class": "form-control",
+                "id": "last_name",
+                "placeholder": "Last name",
+                "required": "required",
+            }),
+            "email": forms.EmailInput(attrs={
+                "label": "E-mail",
+                "class": "form-control",
+                "id": "email",
+                "placeholder": "you@example.com",
+                "required": "required",
+            }),
+        }
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["city", "telegram_link", "vk_link", "instagram_link"]
+        widgets = {
+            "city": forms.TextInput(attrs={
+                "label": "City",
+                "class": "form-control",
+                "id": "city",
+                "placeholder": "Minsk",
+            }),
+            "telegram_link": forms.TextInput(attrs={
+                "label": "Telegram",
+                "class": "form-control",
+                "id": "telegram",
+                "placeholder": "@username",
+            }),
+            "vk_link": forms.TextInput(attrs={
+                "label": "VK",
+                "class": "form-control",
+                "id": "vk",
+                "placeholder": "@username",
+            }),
+            "instagram_link": forms.TextInput(attrs={
+                "label": "Instagram",
+                "class": "form-control",
+                "id": "instagram",
+                "placeholder": "@username",
+            }),
+        }
+

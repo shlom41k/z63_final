@@ -1,0 +1,11 @@
+.container {
+  max-width: 60%;
+}
+
+/*#btn-add-info {*/
+/*  width: 70%;*/
+/*}*/
+
+#btn_add_info {
+  position: center;
+}

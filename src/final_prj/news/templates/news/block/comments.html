@@ -21,8 +21,6 @@
 {% for comment in post.comments.all %}
 <div class="media mb-4">
 
-
-
     <img class="d-flex mr-3 rounded-circle" src="https://pngimg.com/uploads/circle/circle_PNG33.png" alt="Text" style="width:60px; height:60px">
 
     <div class="media-body">
@@ -52,8 +50,26 @@
         {% endfor %}
 
         <div class="d-flex justify-content-end">
-            <a href="#">Ответить</a>
+            <button type="button" onClick="GFG_Fun()" class="btn btn-outline-primary btn-sm" id="add_form">Ответить</button>
+<!--            <button type="button" onClick="GFG_Fun()" id="add_form">Ответить</button>-->
+<!--            <a id="add_form" href="#">Ответить</a>-->
         </div>
+        <p id="my_form"></p>
+
+
+        <!--    Comment form-->
+<!--        <div class="card-body">-->
+<!--            <form id="form-container" method="POST">-->
+<!--                {% csrf_token %}-->
+<!--                <div class="bird-form">-->
+<!--                    <div class="form-group">-->
+<!--                        {{ answer_form.text }}-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <button type="submit" class="btn btn-primary btn-sm">Отправить</button>-->
+<!--            </form>-->
+<!--        </div>-->
 
 
     </div>
@@ -63,3 +79,45 @@
 
 <hr>
 {% endfor %}
+
+<script>
+
+    var container = document.querySelector("#GFG_DOWN")
+    var addButton = document.querySelector("#add_form")
+
+    addButton.addEventListener('click', addForm)
+
+    function addForm(e){
+
+        e.preventDefault()
+
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "submit.php");
+
+        // Create an input element for emailID
+        var ID = document.createElement("input");
+        ID.setAttribute("type", "text");
+        ID.setAttribute("name", "Comment");
+        ID.setAttribute("placeholder", "Comment");
+
+        var s = document.createElement("input");
+        s.setAttribute("type", "submit");
+        s.setAttribute("value", "Send");
+        s.setAttribute("class", "btn");
+
+        // Append the comment input to the form
+        form.append(ID);
+
+        // Append the button to the form
+        form.append(s);
+
+        // container.insertBefore(form, addButton)
+
+        //document.getElementsByTagName("body")[0]
+        document.getElementById("my_form")
+        .appendChild(form);
+    }
+
+</script>
+
