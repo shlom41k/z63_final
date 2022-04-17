@@ -8,7 +8,7 @@
 
 <!--Header-->
 {% block header %}
-    {% include 'templates/block/slider.html' %}
+    {% include 'templates/block/header.html' %}
 {% endblock %}
 
 <!--Content-->
@@ -17,11 +17,11 @@
       <h1 class="my-3">Курсы для самостоятельного изучения </h1>
       <div class="row">
         {% for course in page_obj %}
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="card mb-4 shadow-sm">
             <img src="../media/{{ course.image }}" alt="" class="card-img-top">
             <div class="card-body">
-              <h4 class="card-title">{{ course.name }}</h4>
+              <h5 class="card-title">{{ course.name }}</h5>
 
 <!--              {% for tag in post.tag.all %}-->
 <!--                  <a href="{% url 'news_tag' tag.slug %}" class="mr-1 badge badge-info">#{{ tag }}</a>-->
@@ -29,9 +29,14 @@
 
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <a href="" class="btn btn-sm btn-outline-secondary">Подробнее</a>
+                  <a href="{% url 'study_course_detail' course_id=course.pk %}"
+                     class="btn btn-sm btn-outline-secondary">Подробнее</a>
                 </div>
-                <small class="text-muted">{{ course.date_of_creating }}</small>
+                {% if course.course_status == course.COMPLETED %}
+                  <small class="text-success">Доступен</small>
+                {% else %}
+                  <small class="text-muted">В разработке</small>
+                {% endif %}
               </div>
             </div>
           </div>

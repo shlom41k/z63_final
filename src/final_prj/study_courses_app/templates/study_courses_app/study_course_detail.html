@@ -1,10 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'templates/base.html' %}
 
-</body>
-</html>
+
+{% load static %}
+
+<!--Title-->
+{% block title %}{{ course.name }}{% endblock %}
+
+<!--Header-->
+{% block header %}
+    {% include 'templates/block/header.html' %}
+{% endblock %}
+
+<!--Content-->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb" class="mt-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'study_courses' %}">Все курсы</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ course.name }}</li>
+                </ol>
+            </nav>
+            <img class="img-fluid rounded " src="{{ course.image.url }}" alt="">
+            <hr>
+
+            <!--Post content-->
+            <p class="lead">{{ course.description|safe }}</p>
+
+            <!--Post tags-->
+<!--            <div class="d-flex justify-content-end">-->
+<!--                {% for tag in post.tag.all %}-->
+<!--                    <a href="{% url 'news_tag' tag.slug %}" class="mr-1 badge badge-info">#{{ tag }}</a>-->
+<!--                {% endfor %}-->
+<!--            </div>-->
+            <hr>
+
+            <div class="d-flex">
+                <div class="mr-auto p-2 lead">Автор: {{ course.creator }}</div>
+                <div class="p-2">Создан: {{ course.date_of_creating }}</div>
+            </div>
+            <hr>
+
+            <!--Comments-->
+
+        </div>
+
+        <!--Right side block-->
+        <div class="col-md-4">
+            <div class="card my-4">
+                <h5 class="card-header">Доп. инфа</h5>
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">Обучение</h5>
+                        <div class="d-grid">
+                            <a href="{% url 'study_course' course_id=course.pk module_id=1 lesson_id=1 theme_id=1 %}"
+                            ><button class="w-100 btn btn-outline-success btn-lg" type="button">Поступить на курс</button></a>
+                        </div>
+
+                        <hr>
+
+                        <h5 class="card-title">Авторы</h5>
+                        {{ course.creator }}
+                        <hr>
+
+                    </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

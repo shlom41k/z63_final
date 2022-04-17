@@ -1,0 +1,95 @@
+{% extends 'templates/course_base.html' %}
+
+
+{% load static %}
+{% load index %}
+
+<!--Title-->
+{% block title %}{{ course.name }}{% endblock %}
+
+{% block add_styles %}
+    <link rel="stylesheet" href="{% static 'css/study_courses_app/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/study_courses_app/accordion.css' %}">
+{% endblock %}
+
+<!--Content-->
+{% block content %}
+
+
+<div class="sidebar">
+    <a href="">{{ course.name }}</a>
+    <hr>
+
+    {% for module in course.modules.all %}
+        <div class="row">
+            <div class="col-sm-1" style="background-color: #95ef6e">
+            </div>
+
+            <div class="col-sm-10" style="font-size: large; font-style: italic">
+                <a href="{% url 'study_course' course_id=course.pk module_id=module.order lesson_id=1 theme_id=1 %}"> {{ module.order }}. {{ module.name }}</a>
+            </div>
+        </div>
+
+        {% for lesson in module.lessons.all %}
+            <div class="row">
+                <div class="col-sm-1" style="background-color: #95ef6e">
+                </div>
+                <div class="col-sm-1" style="">
+                </div>
+                <div class="col-sm-9" style="font-size: medium">
+                    <a href="{% url 'study_course' course_id=course.pk module_id=module.order lesson_id=lesson.order theme_id=1 %}"> {{ module.order }}.{{ lesson.order }}. {{ lesson.name }}</a>
+                </div>
+            </div>
+
+<!--            <div class="col-11">-->
+<!--            <a href=""> {{ module.order }}.{{ lesson.order }}. {{ lesson.name }}</a>-->
+<!--            </div>-->
+        {% endfor %}
+
+    {% endfor %}
+</div>
+
+<div class="main">
+    <div class="container">
+
+        <nav aria-label="breadcrumb" class="mt-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">{{ course.name }}</a></li>
+                    <li class="breadcrumb-item" aria-current="page">{{ module.name }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ lesson.name }}</li>
+                </ol>
+            </nav>
+
+        <h4>Заголовок</h4>
+        {{ theme.content|safe }}
+
+
+
+
+<!--        <h2>Accordion</h2>-->
+
+<!--        <button class="accordion">Section 1</button>-->
+<!--        <div class="panel">-->
+<!--          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+<!--        </div>-->
+
+<!--        <button class="accordion">Section 2</button>-->
+<!--        <div class="panel">-->
+<!--          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+<!--        </div>-->
+
+<!--        <button class="accordion">Section 3</button>-->
+<!--        <div class="panel">-->
+<!--          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+<!--        </div>-->
+
+
+    </div>
+
+
+
+</div>
+
+<script src="{% static 'js/blocks/accordion.js' %}"></script>
+
+{% endblock %}

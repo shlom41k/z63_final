@@ -3,44 +3,31 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
 
-  <a href="#" class="navbar-brand">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" width="30" height="30" alt="logo">
-  </a>
+      <a href="#" class="navbar-brand">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" width="30" height="30" alt="logo">
+      </a>
 
-  <a href="#" class="navbar-brand">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Nuxt_logo.svg" width="30" height="30" alt="logo">
-  </a>
+      <a href="#" class="navbar-brand">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Nuxt_logo.svg" width="30" height="30" alt="logo">
+      </a
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a href="{% url 'index' %}" class="nav-link">Главная</a>
-      </li>
-      <li class="nav-item">
-        <a href="{% url 'news_index' %}" class="nav-link">Новости</a>
-      </li>
-      <li class="nav-item">
-        <a href="{% url 'teachers' %}" class="nav-link">Преподаватели</a>
-      </li>
-      <li class="nav-item">
-        <a href="{% url 'school_courses' %}" class="nav-link">Курсы</a>
-      </li>
-      <li class="nav-item ">
-        <a href="{% url 'contacts' %}" class="nav-link">Контакты</a>
-      </li>
-      {% block navbar_course %} {% endblock %}
-    </ul>
 
-    <form action="{% url 'news_search_results' %}" method="GET" class="form-inline my-2 my-lg-0">
-      <input name="q" type="text" class="form-control mr-sm-2" placeholder="Поиск" aria-label="Поиск">
-      <button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="submit">Поиск</button>
-    </form>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a href="{% url 'index' %}" class="nav-link">Главная</a>
+        </li>
+      </ul>
+
+      <div class="navbar-nav mr-auto">
+        {% for theme in lesson.themes.all %}
+        <a href="{% url 'study_course' course_id=course.pk module_id=module.order lesson_id=lesson.order theme_id=theme.order %}">
+          <div class="col-1" style="background-color: #95ef6e; height:100%; width: 100%;">{{ forloop.counter }}</div>
+        </a>
+        {% endfor %}
+      </div>
+
 
     {% if user.is_authenticated %}
 
