@@ -1,0 +1,122 @@
+{% extends 'templates/base.html' %}
+
+
+{% load static %}
+
+
+<!--Title-->
+{% block title %} Profile info {% endblock %}
+
+{% block add_styles %}
+<!--  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">-->
+  <link rel="stylesheet" href="{% static 'css/auth_app/form-validation.css' %}">
+{% endblock %}
+
+<!--Content-->
+{% block content %}
+
+<!--<div class="text-center">-->
+<!--        {% if form.errors %}-->
+<!--            {% for field in form %}-->
+<!--                {% for error in field.errors %}-->
+<!--                    <div class="alert alert-danger">-->
+<!--                        <strong>{{ error|escape }}</strong>-->
+<!--                    </div>-->
+<!--                {% endfor %}-->
+<!--            {% endfor %}-->
+
+<!--            {% for error in form.non_field_errors %}-->
+<!--                <div class="alert alert-danger">-->
+<!--                    <strong>{{ error|escape }}</strong>-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+<!--        {% endif %}-->
+<!--</div>-->
+
+
+    <div class="container">
+    <main>
+
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+      <h2>User profile form</h2>
+      <p class="lead">Please, add your contact info below</p>
+    </div>
+
+
+      <div class="row" id="main_row">
+
+        <form class="form-signin" action="{% url 'add_profile' %}" method="POST">
+
+          {% csrf_token %}
+
+          <h4 class="mb-3">User information</h4>
+
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label class="form-label">{{ user_form.first_name.label }}</label>
+              {{ user_form.first_name }}
+            </div>
+
+            <div class="col-sm-6">
+              <label class="form-label">{{ user_form.last_name.label }}</label>
+              {{ user_form.last_name }}
+            </div>
+          </div>
+          <br>
+
+          <h4 class="mb-3">Contact info</h4>
+
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label class="form-label">{{ user_form.email.label }}</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                {{ user_form.email }}
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label class="form-label">{{ profile_form.city.label }} <span class="text-muted">(Optional)</span></label>
+              {{ profile_form.city }}
+            </div>
+          </div>
+          <br>
+
+          <h5 class="mb-3">Messengers links</h5>
+          <div class="row g-3">
+            <div class="col-sm">
+              <label class="form-label">{{ profile_form.telegram_link.label }} <span class="text-muted">(Optional)</span></label>
+                {{ profile_form.telegram_link }}
+            </div>
+
+            <div class="col-sm">
+              <label class="form-label">{{ profile_form.vk_link.label }} <span class="text-muted">(Optional)</span></label>
+                {{ profile_form.vk_link }}
+            </div>
+
+              <div class="col-sm">
+                <label class="form-label">{{ profile_form.instagram_link.label }} <span class="text-muted">(Optional)</span></label>
+                  {{ profile_form.instagram_link }}
+              </div>
+            </div>
+          <hr class="my-4">
+
+<!--          <div class="form-check">-->
+<!--            <input type="checkbox" class="form-check-input" id="same-address">-->
+<!--            <label class="form-check-label" for="same-address">Продаю душу дьяволу</label>-->
+<!--          </div>-->
+
+<!--          <div class="form-check">-->
+<!--            <input type="checkbox" class="form-check-input" id="save-info">-->
+<!--            <label class="form-check-label" for="save-info">Тык на всякий случай</label>-->
+<!--          </div>-->
+          <hr class="my-4">
+
+          <button class="w-50 btn btn-success btn-lg" id="btn_add_info" type="submit">Continue to checkout</button>
+        </form>
+      </div>
+  </main>
+</div>
+
+{% endblock %}

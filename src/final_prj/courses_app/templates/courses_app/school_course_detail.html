@@ -1,0 +1,52 @@
+{% extends 'templates/base.html' %}
+
+
+{% load static %}
+
+<!--Title-->
+{% block title %} Курсы по английскому языку {% endblock %}
+
+{% block add_styles %}
+{% endblock %}
+
+
+<!--Header-->
+{% block header %}
+    {% include 'templates/block/header.html' %}
+{% endblock %}
+
+
+<!--Content-->
+{% block content %}
+
+  <div class="container">
+    <!-- START THE FEATURETTES -->
+
+    <hr class="featurette-divider">
+
+    <nav aria-label="breadcrumb" class="mt-4">
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'school_courses' %}">Курсы</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ course.name }}</li>
+      </ol>
+    </nav>
+
+      {% for description in course.course_descriptions.all %}
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">{{ description.title }}</h2>
+            <p class="lead">{{ description.content|safe }}</p>
+          </div>
+<!--          <div class="col-md-5">-->
+<!--            <img class="featurette-image img-fluid mx-auto" src="{% static description.image.url %}" alt="Generic placeholder image">-->
+<!--          </div>-->
+        </div>
+      <hr>
+      {% endfor %}
+
+
+  </div>
+
+
+<!--Some-->
+{% endblock %}
