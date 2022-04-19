@@ -92,3 +92,12 @@ class AddProfileView(View):
         return render(request, "auth_app/add_profile_info.html", context={
             "user_form": user_form,
             "profile_form": profile_form})
+
+
+class UserProfileView(View):
+    """
+    # User profile
+    """
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        return render(request, "auth_app/profile.html")

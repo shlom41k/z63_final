@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 
 from ckeditor_uploader.fields import RichTextUploadingField
+# from phone_field import PhoneField
 
 
 class SchoolCourse(models.Model):
@@ -34,4 +35,30 @@ class SchoolCourseDescriptionField(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+
+class SchoolCourseApplication(models.Model):
+    """
+    Course Application model
+    """
+    course = models.ForeignKey(SchoolCourse, on_delete=models.CASCADE, related_name='course_applications')
+    user_name = models.CharField(max_length=100, verbose_name='Person')
+    phone = models.CharField(max_length=100, verbose_name='Person Phone')
+    # phone = PhoneField(verbose_name='Person Phone')
+    # email = models.EmailField(verbose_name='Person Email', blank=True)
+    telegram = models.CharField(max_length=100, verbose_name='Telegram', blank=True)
+
+    OPENED = 'OPENED'
+    IN_WORK = 'IN_WORK'
+    CLOSED = 'CLOSED'
+
+    STATUS_CHOICES = [
+        (OPENED, 'Opened'),
+        (IN_WORK, 'In Work'),
+        (CLOSED, 'Closed'),
+    ]
+    status = models.CharField(max_length=10, verbose_name='Status', choices=STATUS_CHOICES, default=OPENED)
+
+    def __str__(self):
+        return f"User: {self.user_name}  - course: {self.course}"
 

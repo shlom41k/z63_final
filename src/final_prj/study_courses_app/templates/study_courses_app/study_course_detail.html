@@ -54,10 +54,18 @@
                     <div class="card-body">
 
                         <h5 class="card-title">Обучение</h5>
-                        <div class="d-grid">
-                            <a href="{% url 'study_course' course_id=course.pk module_id=1 lesson_id=1 theme_id=1 %}"
-                            ><button class="w-100 btn btn-outline-success btn-lg" type="button">Поступить на курс</button></a>
-                        </div>
+                        {% if course.course_status == course.COMPLETED %}
+                            <div class="d-grid">
+                                <a href="{% url 'study_course' course_id=course.pk module_id=1 lesson_id=1 theme_id=1 %}"
+                                ><button class="w-100 btn btn-outline-success btn-lg" type="button">Поступить на курс</button></a>
+                            </div>
+                        {% else %}
+                            <div class="d-grid">
+                                <a href="{% url 'study_course' course_id=course.pk module_id=1 lesson_id=1 theme_id=1 %}"
+                                ><button class="w-100 btn btn-outline-success btn-lg" type="button" disabled>Поступить на курс</button></a>
+                                <div class="p-2 text-center">Курс находится в разработке</div>
+                            </div>
+                        {% endif %}
 
                         <hr>
 

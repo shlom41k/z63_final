@@ -6,6 +6,12 @@
 <!--Title-->
 {% block title %} Обратная связь {% endblock %}
 
+{% block add_styles %}
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/features/">
+    <link rel="stylesheet" href="{% static 'css/contacts_app/features.css' %}">
+
+{% endblock %}
+
 <!--Header-->
 {% block header %}
     {% include 'templates/block/header.html' %}
@@ -13,7 +19,27 @@
 
 <!--Content-->
 {% block content %}
-<div class="container">
+
+{% include './icons.html' %}
+
+<style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+</style>
+
+
+<div class="container" style="margin-bottom: 60px">
     <div class="row">
         <div class="col-lg-12">
             <nav aria-label="breadcrumb" class="mt-4">
@@ -22,6 +48,51 @@
                     <li class="breadcrumb-item active" aria-current="page">Контакты</li>
                 </ol>
             </nav>
+
+
+            <h2 class="pb-2 border-bottom">Наши контакты</h2>
+            <div class="container px-4" id="icon-grid">
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-3">
+
+                    <div class="col d-flex align-items-start">
+                        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#telegram"/></svg>
+                        <div>
+                            <h4 class="fw-bold mb-0">&thinsp; Telegram </h4>
+                            <a href=""><p>@bumblebeeschool</p></a>
+                        </div>
+                    </div>
+
+                    <div class="col d-flex align-items-start">
+                        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#instagram"/></svg>
+                        <div>
+                            <h4 class="fw-bold mb-0">&thinsp; Instagram</h4>
+                            <a href=""><p>@bumblebeeschool</p></a>
+                        </div>
+                    </div>
+
+                    <div class="col d-flex align-items-start">
+                        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#phone"/></svg>
+                        <div>
+                            <h4 class="fw-bold mb-0">&thinsp; Phone</h4>
+                            <p>+375291234567</p>
+                        </div>
+                    </div>
+
+                  <div class="col d-flex align-items-start">
+                    <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#calendar3"/></svg>
+                    <div>
+                      <h4 class="fw-bold mb-0">&thinsp; Еще что-то</h4>
+                      <p>Еще что-то там</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            <hr>
+
+
+            <h2 class="pb-2">Обратная связь</h2>
             <p class="lead">Чтобы связаться нами заполните, пожалуйста, форму обратной связи</p>
             {{ hello.q }}
             {% if form.errors %}
@@ -80,5 +151,7 @@
 
         </div>
     </div>
+
 </div>
+<hr>
 {% endblock %}

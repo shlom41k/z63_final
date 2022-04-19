@@ -4,11 +4,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
 
   <a href="#" class="navbar-brand">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" width="30" height="30" alt="logo">
+    <img src="{% static 'img/bee-logo-vector.png' %}" width="45" height="45" alt="logo">
   </a>
 
   <a href="#" class="navbar-brand">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Nuxt_logo.svg" width="30" height="30" alt="logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" width="30" height="30" alt="logo">
   </a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -56,7 +56,7 @@
           </a></li>
           <li><a class="dropdown-item" href="#">Settings</a></li>
           <li><a class="dropdown-item" href="{% url 'study_courses' %}">Courses</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="{% url 'user_profile' %}">Profile</a></li>
           <li><hr class="dropdoSwn-divider"></li>
           <li><a class="dropdown-item" href="{% url 'signout' %}">Sign out</a></li>
         </ul>
