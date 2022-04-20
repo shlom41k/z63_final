@@ -13,7 +13,7 @@ class CoursesView(View):
         courses = Course.objects.all()
 
         # Paginate courses
-        paginator = Paginator(courses, 6)
+        paginator = Paginator(courses, 8)
 
         # Get page number from url
         page_num = request.GET.get("page", 1)
@@ -47,6 +47,10 @@ class StudyCourseView(View):
         module = course.modules.get(order=module_id)
         lesson = module.lessons.get(order=lesson_id)
         theme = lesson.themes.get(order=theme_id)
+
+        if request.user not in course.students.all():
+            # print("Add user to course")
+            course.students.add(request.user)
 
         return render(request, "study_courses_app/study_course.html", context={
             "title": f"{course.name}",

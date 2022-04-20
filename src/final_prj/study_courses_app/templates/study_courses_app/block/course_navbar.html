@@ -2,14 +2,13 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-
       <a href="#" class="navbar-brand">
         <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" width="30" height="30" alt="logo">
       </a>
 
       <a href="#" class="navbar-brand">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Nuxt_logo.svg" width="30" height="30" alt="logo">
-      </a
+      </a>
 
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -21,11 +20,19 @@
       </ul>
 
       <div class="navbar-nav mr-auto">
+<!--        {% for theme in lesson.themes.all %}-->
+<!--        <a href="{% url 'study_course' course_id=course.pk module_id=module.order lesson_id=lesson.order theme_id=theme.order %}">-->
+<!--          <div class="col-1" style="background-color: #95ef6e; height:100%; width: 100%;">{{ forloop.counter }}</div>-->
+<!--        </a>-->
+<!--        {% endfor %}-->
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
         {% for theme in lesson.themes.all %}
-        <a href="{% url 'study_course' course_id=course.pk module_id=module.order lesson_id=lesson.order theme_id=theme.order %}">
-          <div class="col-1" style="background-color: #95ef6e; height:100%; width: 100%;">{{ forloop.counter }}</div>
-        </a>
+            <li class="nav-item text-dark" role="presentation">
+            <button class="nav-link" id="{{ theme.name }}-tab" data-bs-toggle="tab" data-bs-target="#{{ theme.name }}" type="button" role="tab" aria-controls="{{ theme.name }}" aria-selected="true" style="background-color: #757270; width: 40px; color: white">{{ forloop.counter }}</button>
+          </li>
         {% endfor %}
+        </ul>
       </div>
 
 

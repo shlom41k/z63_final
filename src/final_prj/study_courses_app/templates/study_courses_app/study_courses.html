@@ -14,12 +14,16 @@
 <!--Content-->
 {% block content %}
     <div class="container">
-      <h1 class="my-3">Курсы для самостоятельного изучения </h1>
+
+      <div class="p-4 mb-4 rounded-3">
+        <h1 class="my-3">Курсы для самостоятельного изучения </h1>
+      </div>
+
       <div class="row">
         {% for course in page_obj %}
         <div class="col-md-3">
           <div class="card mb-4 shadow-sm">
-            <img src="../media/{{ course.image }}" alt="" class="card-img-top">
+            <img src="{{ course.image.url }}" alt="" class="card-img-top">
             <div class="card-body">
               <h5 class="card-title">{{ course.name }}</h5>
 
@@ -30,7 +34,13 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a href="{% url 'study_course_detail' course_id=course.pk %}"
-                     class="btn btn-sm btn-outline-secondary">Подробнее</a>
+                     class="btn btn-sm btn-outline-secondary">
+                    {% if user in course.students.all %}
+                        Продолжить
+                    {% else %}
+                        Подробнее
+                    {% endif %}
+                  </a>
                 </div>
                 {% if course.course_status == course.COMPLETED %}
                   <small class="text-success">Доступен</small>

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.urls import reverse
 
 from ckeditor_uploader.fields import RichTextUploadingField
 
@@ -28,6 +29,9 @@ class Course(models.Model):
 
     def __repr__(self):
         return self.__str__()
+
+    def get_url(self):
+        return reverse("study_course_detail", kwargs={"course_id": self.pk})
 
 
 class Module(models.Model):

@@ -39,11 +39,7 @@ class SchoolCourseDetailView(View):
 
         if form.is_valid():
             form.save()
-            messages.success(request, "Ваша заявка отправлена")
+            messages.success(request, "Ваша заявка успешно отправлена")
             print("Saved")
 
-        # return render(request, "courses_app/school_course_detail.html", context={"title": school_course.name,
-        #                                                                          "course": school_course,
-        #                                                                          "form": form,
-        #                                                                          })
         return redirect("school_course_detail", slug=slug)

@@ -2,20 +2,21 @@ from django.db.models.functions import Sign
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views import View
 
 from .forms import SigUpForm, MySigUpForm, SignInForm, UserProfileForm, ProfileForm
+from study_courses_app.models import Course
 
 
-class IndexView(View):
-    """
-    # Return home page
-    """
-    def get(self, request, *args, **kwargs):
-        return render(request, "templates/base.html")
+# class IndexView(View):
+#     """
+#     # Return home page
+#     """
+#     def get(self, request, *args, **kwargs):
+#         return render(request, "templates/main_home.html")
 
 
 class SignUpView(View):
@@ -100,4 +101,12 @@ class UserProfileView(View):
     """
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        return render(request, "auth_app/profile.html")
+        # Active courses
+        user_courses = request.user.current_courses.all().order_by("-date_of_creating")[:5]
+        user_posts = request.user.posts.all().order_by("-date_of_creating")[:5]
+
+        return render(request, "auth_app/profile.html", context={
+            "user_courses": user_courses,
+            "user_posts": user_posts,
+        })
+

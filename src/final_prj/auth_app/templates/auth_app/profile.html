@@ -12,7 +12,6 @@
 <!--    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>-->
 <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <style>
 .fa {
   padding: 20px;
@@ -31,6 +30,11 @@
   background: #125688;
   color: white;
 }
+
+.checked {
+  color: orange;
+}
+
 </style>
 
 {% endblock %}
@@ -52,25 +56,53 @@
                     <div class="card-body">
                         <img src="{% static 'img/users/user_profile_avatar.png' %}" alt="" class="card-img-top">
                         <hr>
-                        <h5 class="card-title text-center">{{ user.username }}</h5>
-                        <hr>
-<!--                        Какое-то длинное описание на 2900 буков-->
-<!--                        <a href="" class="card-link">Подробнее</a>-->
-                        <div class="card my-4">
-                            <p class="lead">{{ user.first_name }} {{ user.last_name }}</p>
-                            <p class="lead">{{ user.email }}</p>
-                            <p class="lead">City: {{ user.profile.city }}</p>
-                        </div>
 
-                        <div class="card my-4">
-                            <h5 class="card-title">Contact info:</h5>
-                            <p class="lead">Telegram: {{ user.profile.telegram_link }}</p>
-                            <p class="lead">VK: {{ user.profile.vk_link }}</p>
-                            <p class="lead">Instagram: {{ user.profile.instagram_link }}</p>
+                        <div class="card my-4 bg-light">
+                            <h5 class="text-center">{{ user.username }}</h5>
                         </div>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        Edit
+                        <hr>
+
+                        <!--Rating-->
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <hr>
+
+                        <div class="card my-3">
+                            <div class="p-2">
+                                <p class="lead">{{ user.first_name }} {{ user.last_name }}</p>
+                                <p class="lead">{{ user.email }}</p>
+                                {% if user.profile.city %}
+                                    <p class="lead">City: {{ user.profile.city }}</p>
+                                {% endif %}
+                                <hr>
+
+                                <h5 class="card-title text-center bg-light">Contact info</h5>
+                                {% if user.profile.telegram_link or user.profile.vk_link or user.profile.instagram_link %}
+                                    {% if user.profile.telegram_link %}
+                                        <p class="lead">Telegram: {{ user.profile.telegram_link }}</p>
+                                    {% endif %}
+
+                                    {% if user.profile.vk_link %}
+                                        <p class="lead">VK: {{ user.profile.vk_link }}</p>
+                                    {% endif %}
+
+                                    {% if user.profile.instagram_link %}
+                                        <p class="lead">Instagram: {{ user.profile.instagram_link }}</p>
+                                    {% endif %}
+                                {% else %}
+                                    <p class="lead"><a href="">add link</a></p>
+                                {% endif %}
+                            </div>
+
+                            <div class="d-flex justify-content-center bg-light p-1">
+                                <a href="">
+                                  <button type="button" class=" w-100 btn btn-sm btn-info">Edit profile info</button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
             </div>
         </div>
@@ -83,45 +115,57 @@
                     <li class="breadcrumb-item active" aria-current="page">{{ user.first_name }} {{ user.last_name }}</li>
                 </ol>
             </nav>
-            <img class="img-fluid rounded " src="{{ post.image.url }}" alt="">
+            <hr>
+
+            <!--Add content buttons-->
+<!--            <div class="card my-4">-->
+<!--                <div class="p-2 rounded-3">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-4 text-center">-->
+<!--                            <a href=""><button type="button" class="btn w-100 btn btn-outline-success">Добавить пост</button></a>-->
+<!--                        </div>-->
+<!--                        <div class="col-4 text-center">-->
+<!--                            <a href=""><button type="button" class="btn w-100 btn btn-outline-primary">Создать курс</button></a>-->
+<!--                        </div>-->
+<!--                        <div class="col-4 text-center">-->
+<!--                            <a href=""><button type="button" class="btn w-100 btn btn-outline-dark">Добавить пост</button></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="card my-4">
+                <div class="p-2 rounded-3">
+                    <div class="d-flex align-items-center breadcrumb">
+                        <h3 class="card-title mr-auto">Мои курсы</h3>
+                        <a href=""><button type="button" class="btn w-100 btn-sm btn-outline-danger">Архив</button></a>
+                        <p>&thinsp;&thinsp;&thinsp;</p>
+                        <a href=""><button type="button" class="btn w-100 btn-sm btn-outline-success">Все активные курсы</button></a>
+                    </div>
+
+                    {% for course in user_courses %}
+                    <a href="{{ course.get_url }}"><p class="lead">{{ course.name }}</p></a>
+                    {% endfor %}
+                </div>
+            </div>
             <hr>
 
             <div class="card my-4">
-                <h5 class="card-title">Мои курсы</h5>
-                <p class="lead">Курс №1</p>
-                <p class="lead">Курс №2</p>
-                <p class="lead">Курс №3</p>
-                <div class="d-flex justify-content-end">
-                    Все
+                <div class="p-2 rounded-3">
+                    <div class="d-flex align-items-center justify-content-around breadcrumb">
+                        <h3 class="card-title mr-auto">Мои посты</h3>
+                        <a href="{% url 'add_news' %}"><button type="button" class="btn w-100 btn-sm btn-outline-success">Создать пост</button></a>
+                        <p>&thinsp;&thinsp;&thinsp;</p>
+                        <a href=""><button type="button" class="btn w-100 btn-sm btn-outline-secondary">Все авторские посты</button></a>
+                    </div>
+
+                    {% for post in user_posts %}
+                        <a href="{{ post.get_url }}"><p class="lead">{{ post.header_h1 }}</p></a>
+                    {% endfor %}
                 </div>
+
             </div>
-
-             <div class="card my-4">
-                <h5 class="card-title">Мои задания</h5>
-                <p class="lead">Задание №1</p>
-                <p class="lead">Задание №2</p>
-                <p class="lead">Задание №3</p>
-                <div class="d-flex justify-content-end">
-                    Все
-                </div>
-            </div>
-
-            <!--Post content-->
-
-
-            <!--Post tags-->
-<!--            <div class="d-flex justify-content-end">-->
-<!--                    dfkgjhdflkgjhdflgkjdfg-->
-<!--            </div>-->
-<!--            <hr>-->
-
-<!--            <div class="d-flex">-->
-<!--                <div class="mr-auto p-2 lead">Автор: {{ post.author }}</div>-->
-<!--                <div class="p-2">Опубликовано: {{ post.date_of_creating }}</div>-->
-<!--            </div>-->
-<!--            <hr>-->
-
-            <!--Comments-->
+            <hr>
 
         </div>
 

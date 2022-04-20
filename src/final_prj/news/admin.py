@@ -4,7 +4,9 @@ from .models import Post, Comment, CommentAnswer
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ["header_h1", "title"]
+    list_display = ["header_h1", "author", "date_of_creating", "status"]
+    list_filter = ["status"]
+    list_editable = ["status"]
     prepopulated_fields = {"slug": ("header_h1",)}
 
 

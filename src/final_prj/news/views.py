@@ -1,13 +1,15 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import View
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from taggit.models import Tag
 
 from .models import Post, Comment
-from .forms import CommentForm, CommentAnswerForm
+from .forms import CommentForm, CommentAnswerForm, PostCreateForm
 
 
 class MainView(View):
@@ -15,7 +17,8 @@ class MainView(View):
     # Return home page
     """
     def get(self, request, *args, **kwargs):
-        news = Post.objects.all()
+        # Get posts, that are ready for public
+        news = Post.objects.filter(status=Post.PUBLISHED)
 
         # Paginate news
         paginator = Paginator(news, 6)
@@ -38,7 +41,7 @@ class PostDetailView(View):
         post = get_object_or_404(Post, slug=slug)
 
         # Get last 5 posts
-        last_posts = Post.objects.all().order_by("-id")[:5]
+        last_posts = Post.objects.filter(status=Post.PUBLISHED).order_by("-date_of_creating")[:5]
 
         # Form for comments
         comment_form = CommentForm()
@@ -75,7 +78,7 @@ class NewsSearchResultsView(View):
 
         # Search by title and content
         if query:
-            results = Post.objects.filter(Q(header_h1__icontains=query) | Q(content__icontains=query))
+            results = Post.objects.filter(status=Post.PUBLISHED).filter(Q(header_h1__icontains=query) | Q(content__icontains=query))
 
         # Paginate
         paginator = Paginator(results, 6)
@@ -94,7 +97,7 @@ class NewsTagView(View):
         tag = get_object_or_404(Tag, slug=slug)
 
         # Get posts by tag
-        posts = Post.objects.filter(tag=tag)
+        posts = Post.objects.filter(status=Post.PUBLISHED).filter(tag=tag)
         common_tags = Post.tag.most_common()
 
         # # Paginate
@@ -103,3 +106,20 @@ class NewsTagView(View):
         # page_obj = paginator.get_page(page_num)
 
         return render(request, "news/news_tag.html", context={"title": f"#ТЕГ {tag}", "posts": posts, "common_tags": common_tags})
+
+
+class NewsCreateView(View):
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        form = PostCreateForm()
+        return render(request, "news/news_create.html", context={"form": form, })
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        form = PostCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=True)
+            post.author = request.user
+            post.save()
+            return redirect("user_profile")
+        return render(request, "news/news_create.html", context={"form": form, })

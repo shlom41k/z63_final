@@ -39,6 +39,7 @@
                 <div class="col-sm-9" style="font-size: medium">
                     <a href="{% url 'study_course' course_id=course.pk module_id=module.order lesson_id=lesson.order theme_id=1 %}"> {{ module.order }}.{{ lesson.order }}. {{ lesson.name }}</a>
                 </div>
+
             </div>
 
 <!--            <div class="col-11">-->
@@ -59,9 +60,13 @@
                     <li class="breadcrumb-item active" aria-current="page">{{ lesson.name }}</li>
                 </ol>
             </nav>
+        <hr>
 
-        <h4>Заголовок</h4>
-        {{ theme.content|safe }}
+
+
+<!--        <h4>{{ lesson.name }}</h4>-->
+
+<!--        {{ theme.content|safe }}-->
 
 
 
@@ -70,7 +75,7 @@
 
 <!--        <button class="accordion">Section 1</button>-->
 <!--        <div class="panel">-->
-<!--          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+<!--          <p>123</p>-->
 <!--        </div>-->
 
 <!--        <button class="accordion">Section 2</button>-->
@@ -84,8 +89,32 @@
 <!--        </div>-->
 
 
-    </div>
+<!--        <ul class="nav nav-tabs" id="myTab" role="tablist">-->
+<!--        {% for theme in lesson.themes.all %}-->
+<!--            <li class="nav-item" role="presentation">-->
+<!--            <button class="nav-link" id="{{ theme.name }}-tab" data-bs-toggle="tab" data-bs-target="#{{ theme.name }}" type="button" role="tab" aria-controls="{{ theme.name }}" aria-selected="true">{{ forloop.counter }}</button>-->
+<!--          </li>-->
+<!--        {% endfor %}-->
+<!--        </ul>-->
 
+        <div class="tab-content">
+            {% for theme in lesson.themes.all %}
+                <div class="tab-pane" id="{{ theme.name }}" role="tabpanel" aria-labelledby="home-tab">{{ theme.content|safe }}</div>
+            {% endfor %}
+
+        </div>
+
+
+<script>
+  var firstTabEl = document.querySelector('#myTab li:first-child button')
+  var firstTab = new bootstrap.Tab(firstTabEl)
+  firstTab.show()
+</script>
+
+
+
+
+    </div>
 
 
 </div>

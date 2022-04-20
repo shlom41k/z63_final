@@ -24,6 +24,17 @@
 
     <hr class="featurette-divider">
 
+    {% if messages %}
+      <div class="alert alert-success" role="alert">
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+      <hr class="featurette-divider">
+    {% endif %}
+
     <nav aria-label="breadcrumb" class="mt-4">
       <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url 'school_courses' %}">Курсы</a></li>
@@ -93,13 +104,7 @@
           </div>
         </div>
 
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+
 
   </div>
 
