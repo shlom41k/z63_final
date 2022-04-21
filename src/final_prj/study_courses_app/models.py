@@ -13,6 +13,7 @@ class Course(models.Model):
     creator = models.ForeignKey(User, on_delete=models.SET("Unknown"), verbose_name="Creator", related_name="created_courses")
     date_of_creating = models.DateField(verbose_name="Date of creating", default=timezone.now)
     students = models.ManyToManyField(User, verbose_name="Students", related_name="current_courses", blank=True)
+    old_students = models.ManyToManyField(User, verbose_name="Old Students", related_name="old_courses", blank=True)
 
     COMPLETED = "Completed"
     IN_PROCESS = "In Process"

@@ -25,15 +25,8 @@
             <img class="img-fluid rounded " src="{{ course.image.url }}" alt="">
             <hr>
 
-            <!--Post content-->
+            <!--Course content-->
             <p class="lead">{{ course.description|safe }}</p>
-
-            <!--Post tags-->
-<!--            <div class="d-flex justify-content-end">-->
-<!--                {% for tag in post.tag.all %}-->
-<!--                    <a href="{% url 'news_tag' tag.slug %}" class="mr-1 badge badge-info">#{{ tag }}</a>-->
-<!--                {% endfor %}-->
-<!--            </div>-->
             <hr>
 
             <div class="d-flex">
@@ -41,8 +34,6 @@
                 <div class="p-2">Создан: {{ course.date_of_creating }}</div>
             </div>
             <hr>
-
-            <!--Comments-->
 
         </div>
 
@@ -56,15 +47,50 @@
                         <h5 class="card-title">Обучение</h5>
                         {% if course.course_status == course.COMPLETED %}
                             <div class="d-grid">
-                                <a href="{% url 'study_course' course_id=course.pk module_id=1 lesson_id=1 theme_id=1 %}">
+                                <p><a href="{% url 'study_course' course_id=course.pk module_id=1 lesson_id=1 theme_id=1 %}">
                                     <button class="w-100 btn btn-success btn-lg" type="button">
                                         {% if user in course.students.all %}
                                             Продолжить обучение
+                                        {% elif user in course.old_students.all %}
+                                            Содержимое курса
                                         {% else %}
                                             Поступить на курс
                                         {% endif %}
                                     </button>
-                                </a>
+                                </a></p>
+
+                                {% if user in course.students.all %}
+                                    <p><a>
+                                        <button class="w-100 btn btn-outline-danger btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#to_archive"> Поместить в архив </button>
+                                    </a></p>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="to_archive" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel{{ post.slug }}">Поместить курс в архив</h5>
+                                                </div>
+                                    <!--            <form action="" method="POST" class="form-container">-->
+                                                    <div class="modal-body">
+                                                        <p>Вы действительно хотите поместить курс "{{ course.name }}" в архив?"</p>
+
+                                    <!--                    {% csrf_token %}-->
+                                    <!--                    {{ form.course.as_hidden }}-->
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <a href="{% url 'study_course_to_archive' course_id=course.pk %}"><button type="button" class="btn btn-success">В архив</button></a>
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Отмена</button>
+                                                    </div>
+                                    <!--            </form>-->
+                                            </div>
+                                          </div>
+                                        </div>
+                                {% elif user in course.old_students.all %}
+                                    <div class="alert-primary text-center p-2">Вы уже проходили данный курс</div>
+                                {% endif %}
                             </div>
                         {% else %}
                             <div class="d-grid">

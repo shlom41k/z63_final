@@ -15,37 +15,16 @@
 <!--Content-->
 {% block content %}
 
-<!--<div class="text-center">-->
-<!--        {% if form.errors %}-->
-<!--            {% for field in form %}-->
-<!--                {% for error in field.errors %}-->
-<!--                    <div class="alert alert-danger">-->
-<!--                        <strong>{{ error|escape }}</strong>-->
-<!--                    </div>-->
-<!--                {% endfor %}-->
-<!--            {% endfor %}-->
+<div class="container">
 
-<!--            {% for error in form.non_field_errors %}-->
-<!--                <div class="alert alert-danger">-->
-<!--                    <strong>{{ error|escape }}</strong>-->
-<!--                </div>-->
-<!--            {% endfor %}-->
-<!--        {% endif %}-->
-<!--</div>-->
-
-
-    <div class="container">
-
-
-    <div class="py-5 text-center">
-      <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-      <h2>User profile form</h2>
+    <div class="py-4 text-center">
+      <img class="d-block mx-auto mb-4" src="{% static 'img/users/user_profile_avatar.png'%}" alt="" width="100" height="100">
+      <h2>User profile information</h2>
       <p class="lead">Please, add your contact info below</p>
     </div>
 
-
-      <div class="row" id="main_row">
-
+      <div class="row">
+        <div class="col-12">
         <form class="form-signin" action="{% url 'add_profile' %}" method="POST">
 
           {% csrf_token %}
@@ -111,12 +90,14 @@
 <!--            <input type="checkbox" class="form-check-input" id="save-info">-->
 <!--            <label class="form-check-label" for="save-info">Тык на всякий случай</label>-->
 <!--          </div>-->
-          <hr class="my-4">
+<!--          <hr class="my-4">-->
 
-          <button class="w-50 btn btn-success btn-lg" id="btn_add_info" type="submit">Continue to checkout</button>
+          <button class="w-100 btn btn-success btn-lg" id="btn_add_info" type="submit">Add profile info</button>
+
         </form>
       </div>
 
+</div>
 </div>
 
 {% endblock %}

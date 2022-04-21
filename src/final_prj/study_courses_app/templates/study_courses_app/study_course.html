@@ -9,42 +9,35 @@
 
 {% block add_styles %}
     <link rel="stylesheet" href="{% static 'css/study_courses_app/sidebar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/study_courses_app/accordion.css' %}">
+<!--    <link rel="stylesheet" href="{% static 'css/study_courses_app/accordion.css' %}">-->
 {% endblock %}
 
 <!--Content-->
 {% block content %}
 
-
-<div class="sidebar">
-    <a href="">{{ course.name }}</a>
+<div class="sidebar bg-light">
+     <div class="p-2 bg-light">
+        <a class="text-dark" href="{% url 'study_course_detail' course_id=course.pk %}">
+            <h5>{{ course.name }}</h5>
+        </a>
+     </div>
     <hr>
 
     {% for module in course.modules.all %}
-        <div class="row">
-            <div class="col-sm-1" style="background-color: #95ef6e">
-            </div>
-
-            <div class="col-sm-10" style="font-size: large; font-style: italic">
-                <a href="{% url 'study_course' course_id=course.pk module_id=module.order lesson_id=1 theme_id=1 %}"> {{ module.order }}. {{ module.name }}</a>
+        <div class="row text-dark alert-primary">
+            <div class="col-sm-12 py-2 ml-2">
+                <a class="text-dark" href="{% url 'study_course' course_id=course.pk module_id=module.order lesson_id=1 theme_id=1 %}"><h6>{{ module.order }}. {{ module.name }}</h6></a>
             </div>
         </div>
 
         {% for lesson in module.lessons.all %}
-            <div class="row">
-                <div class="col-sm-1" style="background-color: #95ef6e">
-                </div>
-                <div class="col-sm-1" style="">
-                </div>
-                <div class="col-sm-9" style="font-size: medium">
-                    <a href="{% url 'study_course' course_id=course.pk module_id=module.order lesson_id=lesson.order theme_id=1 %}"> {{ module.order }}.{{ lesson.order }}. {{ lesson.name }}</a>
-                </div>
-
+        <div class="row">
+            <div class="col-sm-1 bg-danger py-1">
             </div>
-
-<!--            <div class="col-11">-->
-<!--            <a href=""> {{ module.order }}.{{ lesson.order }}. {{ lesson.name }}</a>-->
-<!--            </div>-->
+            <div class="col-sm-10 py-1 {% if lesson == current_lesson %} alert-secondary {% endif %}">
+                <a class="text-dark" href="{% url 'study_course' course_id=course.pk module_id=module.order lesson_id=lesson.order theme_id=1 %}"> {{ module.order }}.{{ lesson.order }}. {{ lesson.name }}</a>
+            </div>
+        </div>
         {% endfor %}
 
     {% endfor %}
@@ -52,12 +45,11 @@
 
 <div class="main">
     <div class="container">
-
         <nav aria-label="breadcrumb" class="mt-4">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{ course.name }}</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'study_course_detail' course_id=course.pk %}">{{ course.name }}</a></li>
                     <li class="breadcrumb-item" aria-current="page">{{ module.name }}</li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ lesson.name }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ current_lesson.name }}</li>
                 </ol>
             </nav>
         <hr>
@@ -98,7 +90,7 @@
 <!--        </ul>-->
 
         <div class="tab-content">
-            {% for theme in lesson.themes.all %}
+            {% for theme in current_lesson.themes.all %}
                 <div class="tab-pane" id="{{ theme.name }}" role="tabpanel" aria-labelledby="home-tab">{{ theme.content|safe }}</div>
             {% endfor %}
 

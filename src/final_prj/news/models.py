@@ -28,11 +28,13 @@ class Post(models.Model):
     CREATED = "Created"
     REVIEW = "Review"
     PUBLISHED = "Published"
+    REJECTED = "Rejected"
 
     POST_STATUSES = [
         (CREATED, "Created"),
         (REVIEW, "Review"),
         (PUBLISHED, "Published"),
+        (REJECTED, "Rejected"),
     ]
 
     status = models.CharField(verbose_name="Status", max_length=10, choices=POST_STATUSES, default=CREATED)

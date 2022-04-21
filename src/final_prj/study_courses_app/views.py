@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -44,11 +44,15 @@ class StudyCourseView(View):
     def get(self, request, course_id, module_id=1, lesson_id=1, theme_id=1, *args, **kwargs):
 
         course = get_object_or_404(Course, pk=course_id)
+
+        if course.course_status != Course.COMPLETED:
+            return redirect("study_course_detail", course_id=course_id)
+
         module = course.modules.get(order=module_id)
         lesson = module.lessons.get(order=lesson_id)
         theme = lesson.themes.get(order=theme_id)
 
-        if request.user not in course.students.all():
+        if (request.user not in course.students.all()) and (request.user not in course.old_students.all()):
             # print("Add user to course")
             course.students.add(request.user)
 
@@ -56,6 +60,21 @@ class StudyCourseView(View):
             "title": f"{course.name}",
             "course": course,
             "module": module,
-            "lesson": lesson,
+            "current_lesson": lesson,
             "theme": theme,
         })
+
+
+class StudyCourseToArchiveView(View):
+    @method_decorator(login_required)
+    def get(self, request, course_id, *args, **kwargs):
+
+        course = get_object_or_404(Course, pk=course_id)
+
+        if request.user in course.students.all():
+            course.students.remove(request.user)
+
+        if request.user not in course.old_students.all():
+            course.old_students.add(request.user)
+
+        return redirect("study_course_detail", course_id=course_id)

@@ -4,6 +4,7 @@ from django.views import View
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.utils.decorators import method_decorator
 
 from taggit.models import Tag
@@ -123,3 +124,50 @@ class NewsCreateView(View):
             post.save()
             return redirect("user_profile")
         return render(request, "news/news_create.html", context={"form": form, })
+
+
+class NewsEditView(View):
+    @method_decorator(login_required)
+    def get(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
+
+        if post.author == request.user and post.status == Post.REJECTED:
+            form = PostCreateForm(instance=post)
+            return render(request, "news/news_edit.html", context={"form": form, "post": post})
+        else:
+            messages.error(request, "Вы не можете редактировать эту запись")
+            return redirect("user_posts")
+
+    @method_decorator(login_required)
+    def post(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
+
+        if post.author == request.user and post.status == Post.REJECTED:
+            form = PostCreateForm(request.POST, request.FILES, instance=post)
+
+            if form.is_valid():
+                post = form.save(commit=True)
+                post.status = Post.CREATED
+                post.save()
+                messages.success(request, "Выбранная Вами записы была обновлена")
+                return redirect("user_posts")
+
+            messages.warning(request, "Пожалуйста, проверьте введенные данные")
+            return render(request, "news/news_edit.html", context={"form": form, "post": post})
+        else:
+            messages.error(request, "Вы не можете редактировать эту запись")
+            return redirect("user_posts")
+
+
+class NewsDeleteView(View):
+    @method_decorator(login_required)
+    def get(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
+
+        if post.author == request.user and post.status == Post.REJECTED:
+            post.delete()
+            messages.success(request, "Выбранная Вами записы была успешно удалена")
+        else:
+            messages.error(request, "Вы не можете удалить эту запись")
+
+        return redirect("user_posts")
