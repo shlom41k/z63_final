@@ -9,6 +9,8 @@
 <!--Content-->
 {% block content %}
     <div class="text-center">
+
+        <!--Errors messages-->
         {% if form.errors %}
             {% for field in form %}
                 {% for error in field.errors %}
@@ -25,6 +27,7 @@
             {% endfor %}
         {% endif %}
 
+        <!--Signup form-->
         <form class="form-signin" method="post" action="{% url 'signup' %}">
             {% csrf_token %}
             <h1 class="h3 mb-3 mt-3 font-weight-normal">Для регистрации укажите имя пользователя и пароль</h1>
@@ -32,13 +35,12 @@
                 <label for="inputUsername" class="sr-only">Имя пользователя</label>
                 {{ form.username }}
                 <label for="inputPassword" class="sr-only">Пароль</label>
-<!--            {{ form.password }}-->
                 {{ form.password1 }}
                 <label for="ReInputPassword" class="sr-only">Повторите пароль</label>
-<!--            {{ form.repeat_password }}-->
                 {{ form.password2 }}
                 <button class="btn mt-2 btn-lg btn-primary btn-block" type="submit">Регистрация</button>
             </div>
         </form>
+
     </div>
 {% endblock %}

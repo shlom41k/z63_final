@@ -3,12 +3,15 @@
 
 {% load static %}
 
-{% block title %}Все новости{% endblock %}
+<!--Title-->
+{% block title %} Все новости {% endblock %}
 
+<!--Header-->
 {% block header %}
     {% include 'templates/block/header.html' %}
 {% endblock %}
 
+<!--Content-->
 {% block content %}
 <div class="container">
     <div class="row">
@@ -20,6 +23,7 @@
                 </ol>
             </nav>
 
+            <!--Messages block-->
             {% if messages %}
               <div class="alert alert-success" role="alert">
                 <ul>
@@ -31,6 +35,7 @@
               <hr class="featurette-divider">
             {% endif %}
 
+            <!--User posts-->
             <p class="lead">Найдено записей: {{ count }}</p>
             {% for post in user_posts %}
                 <a href="{% url 'news_detail' slug=post.slug %}"><h2>{{ post.header_h1 }}</h2></a>
@@ -47,11 +52,9 @@
                         <!--Edit news-->
                         <a href="{% url 'edit_news' slug=post.slug %}"><button type="button" class="btn w-100 btn-sm btn-outline-primary">Изменить</button></a>
                         <p>&thinsp;&thinsp;&thinsp;&thinsp;</p>
-
                         <!--Delete news-->
                         <a><button type="button" data-bs-toggle="modal" data-bs-target="#{{ post.slug }}" class="btn w-100 btn-sm btn-outline-danger">Удалить</button></a>
                         <p>&thinsp;&thinsp;&thinsp;&thinsp;</p>
-
                     {% endif %}
                     <h6 class="
                         {% if post.status == post.REJECTED %}
@@ -64,7 +67,6 @@
                             text-warning
                         {% endif %}
                     ">{{ post.status }}</h6>
-
                 </div>
                 <hr>
 
@@ -79,11 +81,9 @@
             <!--            <form action="" method="POST" class="form-container">-->
                             <div class="modal-body">
                                 <p>Вы действительно хотите удалить запись? "{{ post.header_h1 }}?"</p>
-
             <!--                    {% csrf_token %}-->
             <!--                    {{ form.course.as_hidden }}-->
                             </div>
-
                             <div class="modal-footer">
                                 <a href="{% url 'delete_news' slug=post.slug %}"><button type="button" class="btn btn-success">Удалить</button></a>
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Отмена</button>
@@ -97,9 +97,9 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
 
+<!--Pagination-->
 {% block pagination %}
     <nav aria-label="Paginate me">
       <ul class="pagination justify-content-center">
@@ -113,11 +113,11 @@
         {% endif %}
 
         {% for i in user_posts.paginator.page_range %}
-        {% if i == user_posts.number %}
-          <li class="page-item active"><a class="page-link" href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a></li>
-        {% else %}
-          <li class="page-item"><a class="page-link" href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a></li>
-        {% endif %}
+            {% if i == user_posts.number %}
+                <li class="page-item active"><a class="page-link" href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a></li>
+            {% endif %}
         {% endfor %}
 
         {% if user_posts.has_next %}

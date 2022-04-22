@@ -4,11 +4,13 @@
 {% load static %}
 
 <!--Title-->
-{% block title %}Вход{% endblock %}
+{% block title %} Вход {% endblock %}
 
 <!--Content-->
 {% block content %}
     <div class="text-center">
+
+        <!--Errors messages-->
         {% if form.errors %}
             {% for field in form %}
                 {% for error in field.errors %}
@@ -37,5 +39,6 @@
                 <button class="btn mt-2 btn-lg btn-primary btn-block" type="submit">Войти</button>
             </div>
         </form>
+
     </div>
 {% endblock %}

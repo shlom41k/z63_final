@@ -50,8 +50,12 @@
         <div class="col-md-4">
             <div class="card my-4">
                 <h5 class="card-header text-center">Персональные данные</h5>
-                    <div class="card-body">
-                        <img src="{% static 'img/users/user_profile_avatar.png' %}" alt="" class="card-img-top">
+                    <div class="card-body align-items-center">
+                        {% if not user.profile.photo %}
+                            <img src="{% static 'img/users/user_profile_avatar.png' %}" alt="" class="card-img-top mx-auto d-block">
+                        {% else %}
+                            <img class="rounded-circle mx-auto d-block" src="{{ user.profile.photo.url }}" alt="" width="300" height="300">
+                        {% endif %}
                         <hr>
 
                         <div class="card my-4 bg-light">
@@ -114,6 +118,7 @@
             </nav>
             <hr>
 
+            <!--User courses-->
             <div class="card my-4">
                 <div class="p-2 rounded-3">
                     <div class="d-flex align-items-center breadcrumb">
@@ -130,6 +135,7 @@
             </div>
             <hr>
 
+            <!--User posts-->
             <div class="card my-4">
                 <div class="p-2 rounded-3">
                     <div class="d-flex align-items-center justify-content-around breadcrumb">
@@ -143,14 +149,9 @@
                         <a href="{{ post.get_url }}"><p class="lead">{{ post.header_h1 }}</p></a>
                     {% endfor %}
                 </div>
-
             </div>
             <hr>
-
         </div>
-
     </div>
-
 </div>
-
 {% endblock %}

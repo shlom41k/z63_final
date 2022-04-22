@@ -1,13 +1,13 @@
 from django import forms
 
-from .models import SchoolCourseApplication
+from .models import IndividualLessonApplication
 
 
-# Form for SchoolCourseApplication model
-class SchoolCourseApplicationForm(forms.ModelForm):
+# Form for the application of an individual lesson
+class IndividualLessonApplicationForm(forms.ModelForm):
     class Meta:
-        model = SchoolCourseApplication
-        fields = ['course', 'user_name', 'phone', 'telegram', ]
+        model = IndividualLessonApplication
+        fields = ['teacher', 'user_name', 'phone', 'telegram']
         widgets = {
             "user_name": forms.TextInput(attrs={
                 "label": "User Name",

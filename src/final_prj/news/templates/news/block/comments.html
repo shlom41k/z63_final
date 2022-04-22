@@ -1,41 +1,39 @@
+<!--Comments block-->
 <div class="card my-4">
     <h5 class="card-header">Прокомментируйте:</h5>
     {% if user.is_authenticated %}
     <div class="card-body">
 
-<!--    Comment form-->
-        <form method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-                {{ form.text }}
-            </div>
-            <button type="submit" class="btn btn-primary">Отправить</button>
-        </form>
+    <!--Comment form-->
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.text }}
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
 
     </div>
     {% else %}
-    <h6 class="card-header"><a href="{% url 'signin' %}">Авторизуйтесь</a> или <a href="{% url 'signup' %}">зарегистрируйтесь</a> чтобы оставить комментарий</h6>
+        <h6 class="card-header"><a href="{% url 'signin' %}">Авторизуйтесь</a> или <a href="{% url 'signup' %}">зарегистрируйтесь</a> чтобы оставить комментарий</h6>
     {% endif %}
 </div>
 
+<!--All comments-->
 {% for comment in post.comments.all %}
 <div class="media mb-4">
-
     <img class="d-flex mr-3 rounded-circle" src="https://pngimg.com/uploads/circle/circle_PNG33.png" alt="Text" style="width:60px; height:60px">
 
     <div class="media-body">
-<!--        <small class="d-flex justify-content-end">{{comment.date_of_creating}}</small>-->
         <div class="d-flex">
           <div class="align-items-start"><h5 class="mt-0">{{ comment.author }}</h5></div>
           <div class="justify-content-end ml-auto">{{ comment.date_of_creating }}</div>
         </div>
-<!--        <h5 class="mt-0">{{comment.author}}</h5>-->
         {{comment.text}}
 
-
+        <!--Answers to the comments-->
         {% for answer in comment.answers.all %}
         <div class="media mt-3">
-<!--            <a class="pr-3" href="#"><img src="..." alt="Generic placeholder image"></a>-->
             <img class="d-flex mr-3 rounded-circle" src="https://pngimg.com/uploads/circle/circle_PNG33.png" alt="Text" style="width:60px; height:60px">
             <div class="media-body">
                 <h6 class="mt-0">{{ answer.author }}</h6>
@@ -45,7 +43,6 @@
             <div class="d-flex justify-content-end">
                 <small>{{ answer.date_of_creating }}</small>
             </div>
-
         </div>
         {% endfor %}
 
@@ -56,8 +53,7 @@
         </div>
         <p id="my_form"></p>
 
-
-        <!--    Comment form-->
+<!--    Comment form-->
 <!--        <div class="card-body">-->
 <!--            <form id="form-container" method="POST">-->
 <!--                {% csrf_token %}-->
@@ -70,54 +66,7 @@
 <!--                <button type="submit" class="btn btn-primary btn-sm">Отправить</button>-->
 <!--            </form>-->
 <!--        </div>-->
-
-
     </div>
-
 </div>
-
-
 <hr>
 {% endfor %}
-
-<script>
-
-//    var container = document.querySelector("#GFG_DOWN")
-//    var addButton = document.querySelector("#add_form")
-//
-//    addButton.addEventListener('click', addForm)
-//
-//    function addForm(e){
-//
-//        e.preventDefault()
-//
-//        var form = document.createElement("form");
-//        form.setAttribute("method", "post");
-//        form.setAttribute("action", "submit.php");
-//
-//        // Create an input element for emailID
-//        var ID = document.createElement("input");
-//        ID.setAttribute("type", "text");
-//        ID.setAttribute("name", "Comment");
-//        ID.setAttribute("placeholder", "Comment");
-//
-//        var s = document.createElement("input");
-//        s.setAttribute("type", "submit");
-//        s.setAttribute("value", "Send");
-//        s.setAttribute("class", "btn");
-//
-//        // Append the comment input to the form
-//        form.append(ID);
-//
-//        // Append the button to the form
-//        form.append(s);
-//
-//        // container.insertBefore(form, addButton)
-//
-//        //document.getElementsByTagName("body")[0]
-//        document.getElementById("my_form")
-//        .appendChild(form);
-//    }
-
-</script>
-

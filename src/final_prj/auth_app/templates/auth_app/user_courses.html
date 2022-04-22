@@ -3,12 +3,15 @@
 
 {% load static %}
 
+<!--Title-->
 {% block title %} Все курсы {% endblock %}
 
+<!--Header-->
 {% block header %}
     {% include 'templates/block/header.html' %}
 {% endblock %}
 
+<!--Content-->
 {% block content %}
 <div class="container">
     <div class="row">
@@ -20,6 +23,7 @@
                 </ol>
             </nav>
 
+            <!--Messages block-->
             {% if messages %}
               <div class="alert alert-success" role="alert">
                 <ul>
@@ -31,6 +35,7 @@
               <hr class="featurette-divider">
             {% endif %}
 
+            <!--User courses-->
             <p class="lead">Найдено записей: {{ count }}</p>
             {% for course in user_courses %}
                 <a href="{% url 'study_course_detail' course_id=course.pk %}"><h2>{{ course.name }}</h2></a>
@@ -42,12 +47,13 @@
                 </div>
                 <hr>
             {% endfor %}
+
         </div>
     </div>
 </div>
-
 {% endblock %}
 
+<!--Pagination-->
 {% block pagination %}
     <nav aria-label="Paginate me">
       <ul class="pagination justify-content-center">

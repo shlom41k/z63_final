@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, reverse, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -23,11 +23,7 @@ class MainView(View):
 
         # Paginate news
         paginator = Paginator(news, 6)
-
-        # Get page number from url
         page_num = request.GET.get("page")
-
-        # Get page object
         page_obj = paginator.get_page(page_num)
 
         return render(request, "news/home.html", context={"page_obj": page_obj})
@@ -79,14 +75,19 @@ class NewsSearchResultsView(View):
 
         # Search by title and content
         if query:
-            results = Post.objects.filter(status=Post.PUBLISHED).filter(Q(header_h1__icontains=query) | Q(content__icontains=query))
+            results = Post.objects.filter(status=Post.PUBLISHED).filter(Q(header_h1__icontains=query) |
+                                                                        Q(content__icontains=query))
 
         # Paginate
         paginator = Paginator(results, 6)
         page_num = request.GET.get("page")
         page_obj = paginator.get_page(page_num)
 
-        return render(request, "news/search_results.html", context={"title": "Поиск", "results": page_obj, "count": paginator.count})
+        return render(request, "news/search_results.html", context={
+            "title": "Поиск",
+            "results": page_obj,
+            "count": paginator.count,
+        })
 
 
 class NewsTagView(View):
@@ -101,32 +102,49 @@ class NewsTagView(View):
         posts = Post.objects.filter(status=Post.PUBLISHED).filter(tag=tag)
         common_tags = Post.tag.most_common()
 
-        # # Paginate
+        # Paginate
         # paginator = Paginator(posts, 6)
         # page_num = request.GET.get("page")
         # page_obj = paginator.get_page(page_num)
 
-        return render(request, "news/news_tag.html", context={"title": f"#ТЕГ {tag}", "posts": posts, "common_tags": common_tags})
+        return render(request, "news/news_tag.html", context={
+            "title": f"#ТЕГ {tag}",
+            "posts": posts,
+            "common_tags": common_tags,
+        })
 
 
 class NewsCreateView(View):
+    """
+    # Return create news page
+    """
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         form = PostCreateForm()
-        return render(request, "news/news_create.html", context={"form": form, })
+
+        return render(request, "news/news_create.html", context={
+            "form": form,
+        })
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         form = PostCreateForm(request.POST, request.FILES)
+
         if form.is_valid():
             post = form.save(commit=True)
             post.author = request.user
             post.save()
             return redirect("user_profile")
-        return render(request, "news/news_create.html", context={"form": form, })
+
+        return render(request, "news/news_create.html", context={
+            "form": form,
+        })
 
 
 class NewsEditView(View):
+    """
+    # Return edit news page
+    """
     @method_decorator(login_required)
     def get(self, request, slug, *args, **kwargs):
         post = get_object_or_404(Post, slug=slug)
@@ -153,13 +171,19 @@ class NewsEditView(View):
                 return redirect("user_posts")
 
             messages.warning(request, "Пожалуйста, проверьте введенные данные")
-            return render(request, "news/news_edit.html", context={"form": form, "post": post})
+            return render(request, "news/news_edit.html", context={
+                "form": form,
+                "post": post,
+            })
         else:
             messages.error(request, "Вы не можете редактировать эту запись")
             return redirect("user_posts")
 
 
 class NewsDeleteView(View):
+    """
+    # Return delete news page
+    """
     @method_decorator(login_required)
     def get(self, request, slug, *args, **kwargs):
         post = get_object_or_404(Post, slug=slug)

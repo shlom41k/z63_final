@@ -7,6 +7,9 @@ from .forms import FeedBackForm
 
 
 class FeedBackView(View):
+    """
+    View for feedback form
+    """
     def get(self, request, *args, **kwargs):
         form = FeedBackForm()
 
@@ -24,6 +27,7 @@ class FeedBackView(View):
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
 
+            # Send email
             try:
                 send_mail(f'От {name} | {subject}', message, from_email, ['ZerGey1994MU@mail.ru'])
             except BadHeaderError:
@@ -37,5 +41,10 @@ class FeedBackView(View):
 
 
 class SuccessView(View):
+    """
+    View for success page
+    """
     def get(self, request, *args, **kwargs):
-        return render(request, 'contacts_app/success.html', context={'title': 'Спасибо'})
+        return render(request, 'contacts_app/success.html', context={
+            'title': 'Спасибо',
+        })

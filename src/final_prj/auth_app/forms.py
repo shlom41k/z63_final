@@ -6,50 +6,10 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
 
-# class SigUpForm(forms.Form):
-#     username = forms.CharField(
-#         max_length=100,
-#         required=True,
-#         widget=forms.TextInput(attrs={
-#             'class': "form-control",
-#             'id': "inputUsername",
-#         }),
-#     )
-#
-#     password = forms.CharField(
-#         required=True,
-#         widget=forms.PasswordInput(attrs={
-#             'class': "form-control",
-#             'id': "inputPassword",
-#         }),
-#     )
-#     repeat_password = forms.CharField(
-#         required=True,
-#         widget=forms.PasswordInput(attrs={
-#             'class': "form-control",
-#             'id': "ReInputPassword",
-#         }),
-#     )
-#
-#     def clean(self):
-#         password = self.cleaned_data['password']
-#         confirm_password = self.cleaned_data['repeat_password']
-#
-#         if password != confirm_password:
-#             raise forms.ValidationError("Пароли не совпадают")
-#
-#     def save(self):
-#         user = User.objects.create_user(
-#             username=self.cleaned_data['username'],
-#             password=self.cleaned_data['password'],
-#         )
-#         user.save()
-#         auth = authenticate(**self.cleaned_data)
-#         return auth
-
-
 class MySigUpForm(UserCreationForm):
-
+    """
+    Form for user sign up
+    """
     username = forms.CharField(
         max_length=100,
         required=True,
@@ -77,12 +37,11 @@ class MySigUpForm(UserCreationForm):
         }),
     )
 
-    # class Meta:
-    #     model = User
-    #     exclude = "__all__"
-
 
 class SignInForm(forms.Form):
+    """
+    Form for user sign in
+    """
     username = forms.CharField(
         max_length=100,
         required=True,
@@ -102,11 +61,11 @@ class SignInForm(forms.Form):
         })
     )
 
+    # User login and password validation
     def clean(self):
         super(self.__class__, self).clean()
 
         username = self.cleaned_data.get("username")
-
         user = User.objects.filter(username=username).first()
 
         if not user:
@@ -121,6 +80,9 @@ class SignInForm(forms.Form):
 
 
 class UserProfileForm(forms.ModelForm):
+    """
+    Form for user main data
+    """
     class Meta:
         model = User
         fields = ["first_name", "last_name", "email"]
@@ -150,6 +112,9 @@ class UserProfileForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
+    """
+    Form for user profile data
+    """
     class Meta:
         model = Profile
         fields = ["city", "telegram_link", "vk_link", "instagram_link"]
@@ -179,4 +144,3 @@ class ProfileForm(forms.ModelForm):
                 "placeholder": "@username",
             }),
         }
-

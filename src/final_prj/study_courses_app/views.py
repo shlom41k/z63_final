@@ -4,21 +4,20 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from .models import Course, Module, Lesson, Theme
+from .models import Course
 
 
 class CoursesView(View):
+    """
+    Courses view
+    """
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         courses = Course.objects.all()
 
-        # Paginate courses
+        # Paginate
         paginator = Paginator(courses, 8)
-
-        # Get page number from url
         page_num = request.GET.get("page", 1)
-
-        # Get page object
         page_obj = paginator.get_page(page_num)
 
         return render(request, "study_courses_app/study_courses.html", context={
@@ -28,6 +27,9 @@ class CoursesView(View):
 
 
 class CourseDetailView(View):
+    """
+    Course detail view
+    """
     @method_decorator(login_required)
     def get(self, request, course_id, *args, **kwargs):
 
@@ -40,6 +42,9 @@ class CourseDetailView(View):
 
 
 class StudyCourseView(View):
+    """
+    Study course view
+    """
     @method_decorator(login_required)
     def get(self, request, course_id, module_id=1, lesson_id=1, theme_id=1, *args, **kwargs):
 
@@ -53,7 +58,6 @@ class StudyCourseView(View):
         theme = lesson.themes.get(order=theme_id)
 
         if (request.user not in course.students.all()) and (request.user not in course.old_students.all()):
-            # print("Add user to course")
             course.students.add(request.user)
 
         return render(request, "study_courses_app/study_course.html", context={
@@ -66,6 +70,9 @@ class StudyCourseView(View):
 
 
 class StudyCourseToArchiveView(View):
+    """
+    Study course to archive view
+    """
     @method_decorator(login_required)
     def get(self, request, course_id, *args, **kwargs):
 

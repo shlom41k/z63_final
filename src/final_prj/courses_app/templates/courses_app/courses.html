@@ -6,9 +6,8 @@
 <!--Title-->
 {% block title %} Курсы по английскому языку {% endblock %}
 
+<!--User styles-->
 {% block add_styles %}
-<!--  <link rel="stylesheet" href="{% static 'css/teachers_style.css' %}">-->
-
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -29,26 +28,19 @@
         }
       }
     </style>
-
 {% endblock %}
-
 
 <!--Header-->
 {% block header %}
     {% include 'templates/block/header.html' %}
 {% endblock %}
 
-
 <!--Content-->
 {% block content %}
-
-
 <div class="album py-5 bg-light">
     <div class="container">
-<!--      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">-->
       <div class="row">
         {% for course in courses %}
-<!--        <div class="col">-->
         <div class="col-md-4">
           <div class="card shadow-sm">
               {% if course.course_image %}
@@ -63,21 +55,15 @@
                   <a href="{% url 'school_course_detail' slug=course.slug %}">
                       <button type="button" class="btn btn-sm btn-outline-secondary">Подробнее</button>
                   </a>
-<!--                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
                 </div>
-<!--                <small class="text-muted">{{ course.price }}</small>-->
                 <p class="h6">{{ course.price }}</p>
               </div>
             </div>
           </div>
-<!--            <hr>-->
             <br>
         </div>
         {% endfor %}
       </div>
     </div>
 </div>
-
-
-<!--Some-->
 {% endblock %}

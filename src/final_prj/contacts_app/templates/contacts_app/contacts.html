@@ -6,10 +6,10 @@
 <!--Title-->
 {% block title %} Обратная связь {% endblock %}
 
+<!--User styles-->
 {% block add_styles %}
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/features/">
     <link rel="stylesheet" href="{% static 'css/contacts_app/features.css' %}">
-
 {% endblock %}
 
 <!--Header-->
@@ -20,8 +20,10 @@
 <!--Content-->
 {% block content %}
 
+<!--Icons-->
 {% include './icons.html' %}
 
+<!--Add style-->
 <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -49,7 +51,7 @@
                 </ol>
             </nav>
 
-
+            <!--Contact info-->
             <h2 class="pb-2 border-bottom">Наши контакты</h2>
             <div class="container px-4" id="icon-grid">
 
@@ -91,10 +93,11 @@
               </div>
             <hr>
 
-
+            <!--Loopback-->
             <h2 class="pb-2">Обратная связь</h2>
             <p class="lead">Чтобы связаться нами заполните, пожалуйста, форму обратной связи</p>
-            {{ hello.q }}
+<!--            {{ hello.q }}-->
+            <!--Form errors block-->
             {% if form.errors %}
                 {% for field in form %}
                     {% for error in field.errors %}
@@ -110,8 +113,10 @@
                 {% endfor %}
             {% endif %}
 
+            <!--Loopback form-->
             <form name="contact-form" method="post" action="{% url 'contacts' %}">
                 {% csrf_token %}
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="md-form mb-0">
@@ -144,6 +149,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="text-center text-md-left mt-3">
                     <button class="btn btn-primary" type="submit">Отправить</button>
                 </div>
@@ -151,7 +157,6 @@
 
         </div>
     </div>
-
 </div>
 <hr>
 {% endblock %}

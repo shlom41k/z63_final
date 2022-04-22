@@ -7,9 +7,9 @@
 <!--Title-->
 {% block title %}{{ course.name }}{% endblock %}
 
+<!--User styles-->
 {% block add_styles %}
     <link rel="stylesheet" href="{% static 'css/study_courses_app/sidebar.css' %}">
-<!--    <link rel="stylesheet" href="{% static 'css/study_courses_app/accordion.css' %}">-->
 {% endblock %}
 
 <!--Content-->
@@ -54,41 +54,6 @@
             </nav>
         <hr>
 
-
-
-<!--        <h4>{{ lesson.name }}</h4>-->
-
-<!--        {{ theme.content|safe }}-->
-
-
-
-
-<!--        <h2>Accordion</h2>-->
-
-<!--        <button class="accordion">Section 1</button>-->
-<!--        <div class="panel">-->
-<!--          <p>123</p>-->
-<!--        </div>-->
-
-<!--        <button class="accordion">Section 2</button>-->
-<!--        <div class="panel">-->
-<!--          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-<!--        </div>-->
-
-<!--        <button class="accordion">Section 3</button>-->
-<!--        <div class="panel">-->
-<!--          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-<!--        </div>-->
-
-
-<!--        <ul class="nav nav-tabs" id="myTab" role="tablist">-->
-<!--        {% for theme in lesson.themes.all %}-->
-<!--            <li class="nav-item" role="presentation">-->
-<!--            <button class="nav-link" id="{{ theme.name }}-tab" data-bs-toggle="tab" data-bs-target="#{{ theme.name }}" type="button" role="tab" aria-controls="{{ theme.name }}" aria-selected="true">{{ forloop.counter }}</button>-->
-<!--          </li>-->
-<!--        {% endfor %}-->
-<!--        </ul>-->
-
         <div class="tab-content">
             {% for theme in current_lesson.themes.all %}
                 <div class="tab-pane" id="{{ theme.name }}" role="tabpanel" aria-labelledby="home-tab">{{ theme.content|safe }}</div>
@@ -96,19 +61,13 @@
 
         </div>
 
-
-<script>
-  var firstTabEl = document.querySelector('#myTab li:first-child button')
-  var firstTab = new bootstrap.Tab(firstTabEl)
-  firstTab.show()
-</script>
-
-
-
+        <script>
+          var firstTabEl = document.querySelector('#myTab li:first-child button')
+          var firstTab = new bootstrap.Tab(firstTabEl)
+          firstTab.show()
+        </script>
 
     </div>
-
-
 </div>
 
 <script src="{% static 'js/blocks/accordion.js' %}"></script>

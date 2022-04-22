@@ -1,13 +1,13 @@
-import ckeditor_uploader
 from django import forms
 from ckeditor_uploader.fields import RichTextUploadingFormField
 
 from .models import Comment, CommentAnswer, Post
 
-# ckeditor_uploader.settings.width = '100%'
-
 
 class CommentForm(forms.ModelForm):
+    """
+    Form for creating a comment
+    """
     class Meta:
         model = Comment
         fields = ("text", )
@@ -17,6 +17,9 @@ class CommentForm(forms.ModelForm):
 
 
 class CommentAnswerForm(forms.ModelForm):
+    """
+    Form for creating a comment answer
+    """
     class Meta:
         model = CommentAnswer
         fields = ("text", )
@@ -26,10 +29,12 @@ class CommentAnswerForm(forms.ModelForm):
 
 
 class PostCreateForm(forms.ModelForm):
-
+    """
+    Form for creating a post
+    """
     class Meta:
         model = Post
-        fields = ("header_h1", "title", "description", "content", "image", "tag")
+        fields = ("header_h1", "title", "description", "content", "image", "tag", )
         widgets = {
             "header_h1": forms.Textarea(attrs={
                 "rows": 1,

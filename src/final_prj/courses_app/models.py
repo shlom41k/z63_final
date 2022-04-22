@@ -1,7 +1,9 @@
 from django.db import models
-from django.utils.text import slugify
+from django.urls import reverse
 
 from ckeditor_uploader.fields import RichTextUploadingField
+from pytils.translit import slugify
+# from django.utils.text import slugify
 # from phone_field import PhoneField
 
 
@@ -18,10 +20,15 @@ class SchoolCourse(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+    # Create slug for course
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
         super(self.__class__, self).save(*args, **kwargs)
+
+    # Get absolute url for post
+    def get_url(self):
+        return reverse("news_detail", args=[self.slug])
 
 
 class SchoolCourseDescriptionField(models.Model):
@@ -61,4 +68,3 @@ class SchoolCourseApplication(models.Model):
 
     def __str__(self):
         return f"User: {self.user_name}  - course: {self.course}"
-

@@ -9,11 +9,10 @@
 <!--Content-->
 {% block content %}
 <div class="container w-75">
-
     <hr class="featurette-divider">
-
     <h4 class="mb-3 text-center">Редактировать запись</h4>
 
+    <!--Form-->
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.media }}
@@ -52,7 +51,7 @@
         <hr class="featurette-divider"><br>
 
     </form>
-
+    <!--/Form-->
 
 </div>
 {% endblock %}

@@ -6,6 +6,7 @@
 <!--Title-->
 {% block title %} Наши преподаватели {% endblock %}
 
+<!--Add some custom style-->
 {% block add_styles %}
   <link rel="stylesheet" href="{% static 'css/teachers_style.css' %}">
 {% endblock %}
@@ -24,6 +25,7 @@
     <!-- Three columns of text below the carousel -->
     <div class="row" id="teachers_row">
 
+      <!--Short description about teachers-->
       {% for teacher in teachers %}
       <div class="col-lg-4" id="teachers_col">
         {% if teacher.photo %}
@@ -34,14 +36,13 @@
         <h2>{{ teacher.first_name }} {{ teacher.last_name }}</h2>
         <p>{{ teacher.short_description|safe }}</p>
         <p><a class="btn btn-secondary" href="{% url 'teacher_detail' slug=teacher.slug %}">View details »</a></p>
-      </div><!-- /.col-lg-4 -->
+      </div>
       {% endfor %}
 
-    </div><!-- /.row -->
+    </div>
   </div>
 
   <!--Horizontal line-->
   <hr class="featurette-divider">
 
-<!--Some-->
 {% endblock %}

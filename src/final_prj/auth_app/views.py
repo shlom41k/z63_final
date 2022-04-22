@@ -1,23 +1,12 @@
-# from django.db.models.functions import Sign
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.models import User
-from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.utils.decorators import method_decorator
 from django.views import View
 
 from .forms import MySigUpForm, SignInForm, UserProfileForm, ProfileForm
-# from study_courses_app.models import Course
-
-
-# class IndexView(View):
-#     """
-#     # Return home page
-#     """
-#     def get(self, request, *args, **kwargs):
-#         return render(request, "templates/main_home.html")
 
 
 class SignUpView(View):
@@ -26,12 +15,13 @@ class SignUpView(View):
     """
     def get(self, request, *args, **kwargs):
         form = MySigUpForm()
-        # form = UserCreationForm()
-        return render(request, "auth_app/signup.html", context={"form": form})
+
+        return render(request, "auth_app/signup.html", context={
+            "form": form,
+        })
 
     def post(self, request, *args, **kwargs):
         form = MySigUpForm(request.POST)
-        # form = UserCreationForm(request.POST)
 
         if form.is_valid():
             user = form.save()
@@ -40,7 +30,9 @@ class SignUpView(View):
                 login(request, user)
                 return redirect("add_profile")
 
-        return render(request, "auth_app/signup.html", context={"form": form})
+        return render(request, "auth_app/signup.html", context={
+            "form": form,
+        })
 
 
 class SignInView(View):
@@ -49,7 +41,9 @@ class SignInView(View):
     """
     def get(self, request, *args, **kwargs):
         form = SignInForm()
-        return render(request, "auth_app/signin.html", context={"form": form})
+        return render(request, "auth_app/signin.html", context={
+            "form": form,
+        })
 
     def post(self, request, *args, **kwargs):
         form = SignInForm(request.POST)
@@ -62,14 +56,15 @@ class SignInView(View):
                 login(request, user)
                 return HttpResponseRedirect('/')
 
-        return render(request, "auth_app/signin.html", context={"form": form})
+        return render(request, "auth_app/signin.html", context={
+            "form": form,
+        })
 
 
 class AddProfileView(View):
     """
-    # Add profile
+    # Add profile information
     """
-
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         user_form = UserProfileForm(instance=request.user)
@@ -77,7 +72,8 @@ class AddProfileView(View):
 
         return render(request, "auth_app/add_profile_info.html", context={
             "user_form": user_form,
-            "profile_form": profile_form})
+            "profile_form": profile_form,
+        })
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
@@ -87,7 +83,6 @@ class AddProfileView(View):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            # messages.success(request, _('Your profile was successfully updated!'))
 
             return redirect("user_profile")
 
@@ -102,8 +97,10 @@ class UserProfileView(View):
     """
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        # Active courses
+        # Last N user active courses
         user_courses = request.user.current_courses.all().order_by("-date_of_creating")[:5]
+
+        # Last N user posts
         user_posts = request.user.posts.all().order_by("-date_of_creating")[:5]
 
         return render(request, "auth_app/profile.html", context={
@@ -114,7 +111,7 @@ class UserProfileView(View):
 
 class UserPostsView(View):
     """
-    # User posts
+    # All user posts
     """
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
@@ -128,13 +125,13 @@ class UserPostsView(View):
         return render(request, "auth_app/user_posts.html", context={
             "user_posts": page_obj,
             "count": paginator.count,
-            "title": f"Все посты пользователя '{request.user.username}'"
+            "title": f"Все посты пользователя '{request.user.username}'",
         })
 
 
 class UserActiveCoursesView(View):
     """
-    # User active courses
+    # All user active courses
     """
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
@@ -148,13 +145,13 @@ class UserActiveCoursesView(View):
         return render(request, "auth_app/user_courses.html", context={
             "user_courses": page_obj,
             "count": paginator.count,
-            "title": f"Действующие курсы пользователя '{request.user.username}'"
+            "title": f"Действующие курсы пользователя '{request.user.username}'",
         })
 
 
 class UserCompletedCoursesView(View):
     """
-    # User completed courses
+    # All user completed courses (archived)
     """
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
@@ -168,5 +165,5 @@ class UserCompletedCoursesView(View):
         return render(request, "auth_app/user_courses.html", context={
             "user_courses": page_obj,
             "count": paginator.count,
-            "title": f"Архив пройденных курсов пользователя '{request.user.username}'"
+            "title": f"Архив пройденных курсов пользователя '{request.user.username}'",
         })

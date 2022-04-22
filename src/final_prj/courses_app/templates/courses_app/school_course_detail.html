@@ -6,24 +6,22 @@
 <!--Title-->
 {% block title %} Курсы по английскому языку {% endblock %}
 
+<!--User styles-->
 {% block add_styles %}
 {% endblock %}
-
 
 <!--Header-->
 {% block header %}
     {% include 'templates/block/header.html' %}
 {% endblock %}
 
-
 <!--Content-->
 {% block content %}
 
   <div class="container">
-    <!-- START THE FEATURETTES -->
-
     <hr class="featurette-divider">
 
+    <!--Error messages-->
     {% if messages %}
       <div class="alert alert-success" role="alert">
         <ul>
@@ -48,9 +46,6 @@
             <h2 class="featurette-heading">{{ description.title }}</h2>
             <p class="lead">{{ description.content|safe }}</p>
           </div>
-<!--          <div class="col-md-5">-->
-<!--            <img class="featurette-image img-fluid mx-auto" src="{% static description.image.url %}" alt="Generic placeholder image">-->
-<!--          </div>-->
         </div>
       <hr>
       {% endfor %}
@@ -59,23 +54,22 @@
         <div class="row align-self-center align-content-center align-items-center">
           <button class="w-100 btn btn-primary btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Записаться на пробное занятие</button>
         </div>
-
     <hr>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Запись на курсы</h5>
-                <!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+                    <h5 class="modal-title" id="exampleModalLabel">Запись на курсы</h5>
                 </div>
 
+                <!--Form-->
                 <form action="{% url 'school_course_detail' slug=course.slug %}" method="POST" class="form-container">
                     <div class="modal-body">
 
                         {% csrf_token %}
+
                         {{ form.course.as_hidden }}
 
                         <div class="input-group mb-3">
@@ -99,17 +93,10 @@
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Отмена</button>
                     </div>
                 </form>
+                <!--/Form-->
 
             </div>
           </div>
         </div>
-
-
-
   </div>
-
-
-
-
-<!--Some-->
 {% endblock %}

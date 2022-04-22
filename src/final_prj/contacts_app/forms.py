@@ -3,12 +3,15 @@ from django.core.validators import EmailValidator
 
 
 class FeedBackForm(forms.Form):
+    """
+    Form for feedback
+    """
     name = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'name',
-            'placeholder': "Ваше имя"
+            'placeholder': "Ваше имя",
         })
     )
 
@@ -18,7 +21,7 @@ class FeedBackForm(forms.Form):
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
             'id': 'email',
-            'placeholder': "Ваша почта"
+            'placeholder': "Ваша почта",
         })
     )
 
@@ -27,7 +30,7 @@ class FeedBackForm(forms.Form):
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'subject',
-            'placeholder': "Тема"
+            'placeholder': "Тема",
         })
     )
 
@@ -36,6 +39,6 @@ class FeedBackForm(forms.Form):
             'class': 'form-control md-textarea',
             'id': 'message',
             'rows': 5,
-            'placeholder': "Ваше сообщение"
+            'placeholder': "Ваше сообщение",
         })
     )
