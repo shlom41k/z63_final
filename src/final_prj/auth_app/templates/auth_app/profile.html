@@ -94,7 +94,7 @@
                                         <p class="lead">Instagram: {{ user.profile.instagram_link }}</p>
                                     {% endif %}
                                 {% else %}
-                                    <p class="lead"><a href="">add link</a></p>
+                                    <p class="lead"><a href="{% url 'add_profile' %}">add link</a></p>
                                 {% endif %}
                             </div>
 

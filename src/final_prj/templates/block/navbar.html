@@ -1,12 +1,15 @@
 {% load static %}
 
 
+<!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
 
+  <!--Bee logo-->
   <a href="#" class="navbar-brand">
     <img src="{% static 'img/bee-logo-vector.png' %}" width="45" height="45" alt="logo">
   </a>
 
+  <!--Python logo-->
   <a href="#" class="navbar-brand">
     <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" width="30" height="30" alt="logo">
   </a>
@@ -37,18 +40,21 @@
       {% block navbar_course %} {% endblock %}
     </ul>
 
+    <!--Search form-->
     <form action="{% url 'news_search_results' %}" method="GET" class="form-inline my-2 my-lg-0">
       <input name="q" type="text" class="form-control mr-sm-2" placeholder="Поиск" aria-label="Поиск">
       <button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="submit">Поиск</button>
     </form>
 
     {% if user.is_authenticated %}
-
+      <!--For authorized user-->
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center justify-content-end p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-<!--          <img src="https://github.com/mdo.png" alt="mdo" width="30" height="30" class="rounded-circle">-->
-          <img class="rounded-circle " src="{{ user.profile.photo.url }}" alt="mdo" width="30" height="30">
-<!--          <strong>{{ user }}</strong>-->
+          {% if user.profile.photo %}
+            <img class="rounded-circle " src="{{ user.profile.photo.url }}" alt="mdo" width="30" height="30">
+          {% else %}
+            <img class="rounded-circle " src="{% static 'img/users/user_profile_avatar.png' %}" alt="mdo" width="30" height="30">
+          {% endif %}
         </a>
 
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
@@ -67,13 +73,14 @@
       <a href="{% url 'signout' %}" class="btn btn-outline-light">Выход</a>
 
     {% else %}
+    <!--For authorized user-->
       <a href="{% url 'signin' %}" class="btn btn-outline-light mr-2">Вход</a>
       <a href="{% url 'signup' %}" class="btn btn-outline-light mr-2">Регистрация</a>
     {% endif %}
   </div>
-
 </nav>
 
+<!--Scripts-->
 <script src="{% static 'js/blocks/sidebars.js' %}"></script>
 <script src="{% static 'js/blocks/bootstrap.bundle.min.js' %}"></script>
 

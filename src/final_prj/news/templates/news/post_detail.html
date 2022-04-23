@@ -22,7 +22,33 @@
                     <li class="breadcrumb-item active" aria-current="page">{{ post.header_h1 }}</li>
                 </ol>
             </nav>
-            <img class="img-fluid rounded " src="{{ post.image.url }}" alt="">
+
+            <!--Messages block-->
+            {% if messages %}
+              <div class="alert alert-success" role="alert">
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              </div>
+              <hr class="featurette-divider">
+            {% endif %}
+
+            {% if post.status == post.REVIEW %}
+                <div class="alert alert-warning text-center text-dark">
+                    Пост находится на рассмотрении у модератора.<br>
+                    После проверки он будет опубликован.
+                </div>
+            {% elif post.status == post.REJECTED %}
+                <div class="alert alert-danger text-center">
+                    Администрация отклонила публикации данного поста.<br>
+                    Пожалуйста, обратитесь к администрации (используйте форму обратной связи).
+                </div>
+            {% endif %}
+            <div class="text-center">
+                <img class="img-fluid rounded " src="{{ post.image.url }}" alt="">
+            </div>
             <hr>
 
             <!--Post content-->
@@ -43,7 +69,9 @@
             <hr>
 
             <!--Comments-->
-            {% include './block/comments.html' %}
+            {% if post.status == post.PUBLISHED %}
+                {% include './block/comments.html' %}
+            {% endif %}
         </div>
 
         <!--Right side block-->

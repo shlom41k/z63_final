@@ -66,6 +66,16 @@ class Comment(models.Model):
     text = models.TextField(verbose_name="Comment")
     date_of_creating = models.DateTimeField(verbose_name="Date of creating", default=timezone.now)
 
+    PUBLISHED = "Published"
+    DELETED = "Deleted"
+
+    # Comment status
+    COMMENT_STATUSES = [
+        (PUBLISHED, "Published"),
+        (DELETED, "Deleted"),
+    ]
+    status = models.CharField(verbose_name="Status", max_length=10, choices=COMMENT_STATUSES, default=PUBLISHED)
+
     class Meta:
         ordering = ["-date_of_creating"]
 
@@ -84,6 +94,16 @@ class CommentAnswer(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments_answers")
     text = models.TextField(verbose_name="Answer")
     date_of_creating = models.DateTimeField(verbose_name="Date of creating", default=timezone.now)
+
+    # Answer status
+    PUBLISHED = "Published"
+    DELETED = "Deleted"
+
+    COMMENT_ANSWER_STATUSES = [
+        (PUBLISHED, "Published"),
+        (DELETED, "Deleted"),
+    ]
+    status = models.CharField(verbose_name="Status", max_length=10, choices=COMMENT_ANSWER_STATUSES, default=PUBLISHED)
 
     class Meta:
         ordering = ["date_of_creating"]

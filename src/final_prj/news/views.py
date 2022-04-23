@@ -52,13 +52,17 @@ class PostDetailView(View):
         })
 
     def post(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
+
+        if post.status != Post.PUBLISHED:
+            messages.error("Вы не можете оставлять комментарии к этой новости")
+            return redirect("post_detail", slug=slug)
 
         comment_form = CommentForm(request.POST)
 
         if comment_form.is_valid():
             text = request.POST.get("text")
             user = request.user
-            post = get_object_or_404(Post, slug=slug)
             comment = Comment.objects.create(post=post, author=user, text=text)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
@@ -195,3 +199,21 @@ class NewsDeleteView(View):
             messages.error(request, "Вы не можете удалить эту запись")
 
         return redirect("user_posts")
+
+
+class CommentDeleteView(View):
+    """
+    # Delete comment (set status to 'deleted')
+    """
+    @method_decorator(login_required)
+    def get(self, request, comment_id, *args, **kwargs):
+        comment = get_object_or_404(Comment, pk=comment_id)
+
+        if comment.author == request.user or request.user.is_superuser:
+            comment.status = Comment.DELETED
+            comment.save()
+            messages.success(request, "Выбранный Вами комментарий был успешно удален")
+        else:
+            messages.error(request, "Вы не можете удалить этот комментарий")
+
+        return redirect("news_detail", slug=comment.post.slug)

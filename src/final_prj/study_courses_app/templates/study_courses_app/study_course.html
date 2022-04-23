@@ -14,7 +14,6 @@
 
 <!--Content-->
 {% block content %}
-
 <div class="sidebar bg-light">
      <div class="p-2 bg-light">
         <a class="text-dark" href="{% url 'study_course_detail' course_id=course.pk %}">
@@ -39,7 +38,6 @@
             </div>
         </div>
         {% endfor %}
-
     {% endfor %}
 </div>
 
@@ -58,9 +56,9 @@
             {% for theme in current_lesson.themes.all %}
                 <div class="tab-pane" id="{{ theme.name }}" role="tabpanel" aria-labelledby="home-tab">{{ theme.content|safe }}</div>
             {% endfor %}
-
         </div>
 
+        <!--Scripts for tabs-->
         <script>
           var firstTabEl = document.querySelector('#myTab li:first-child button')
           var firstTab = new bootstrap.Tab(firstTabEl)
@@ -70,6 +68,5 @@
     </div>
 </div>
 
-<script src="{% static 'js/blocks/accordion.js' %}"></script>
-
+<!--<script src="{% static 'js/blocks/accordion.js' %}"></script>-->
 {% endblock %}

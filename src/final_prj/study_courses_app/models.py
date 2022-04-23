@@ -6,7 +6,7 @@ from django.urls import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
 
 """
-    Structure of the database:
+    Structure of the courses:
     --> Course 1
         |--> Module 1
         |   |--> Lesson 1
@@ -54,6 +54,7 @@ class Course(models.Model):
     def __repr__(self):
         return self.__str__()
 
+    # Get absolute url of the course
     def get_url(self):
         return reverse("study_course_detail", kwargs={"course_id": self.pk})
 

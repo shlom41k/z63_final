@@ -1,3 +1,5 @@
+{% load static %}
+
 <!--Comments block-->
 <div class="card my-4">
     <h5 class="card-header">Прокомментируйте:</h5>
@@ -21,52 +23,65 @@
 
 <!--All comments-->
 {% for comment in post.comments.all %}
-<div class="media mb-4">
-    <img class="d-flex mr-3 rounded-circle" src="https://pngimg.com/uploads/circle/circle_PNG33.png" alt="Text" style="width:60px; height:60px">
+    {% if comment.status == comment.PUBLISHED %}
+        <div class="media mb-4">
+            {% if comment.author.profile.photo %}
+                <img class="d-flex mr-3 rounded-circle" src="{{ comment.author.profile.photo.url }}" alt="Text" style="width:60px; height:60px">
+            {% else %}
+                <img class="d-flex mr-3 rounded-circle" src="{% static 'img/users/user_profile_avatar.png' %}" alt="Text" style="width:60px; height:60px">
+            {% endif %}
 
-    <div class="media-body">
-        <div class="d-flex">
-          <div class="align-items-start"><h5 class="mt-0">{{ comment.author }}</h5></div>
-          <div class="justify-content-end ml-auto">{{ comment.date_of_creating }}</div>
-        </div>
-        {{comment.text}}
-
-        <!--Answers to the comments-->
-        {% for answer in comment.answers.all %}
-        <div class="media mt-3">
-            <img class="d-flex mr-3 rounded-circle" src="https://pngimg.com/uploads/circle/circle_PNG33.png" alt="Text" style="width:60px; height:60px">
             <div class="media-body">
-                <h6 class="mt-0">{{ answer.author }}</h6>
-                <text>{{ answer.text }}</text>
-            </div>
+                <div class="d-flex">
+                  <div class="align-items-start"><h5 class="mt-0">{{ comment.author }}</h5></div>
+                  <div class="justify-content-end ml-auto">{{ comment.date_of_creating }}</div>
+                </div>
+                {{comment.text}}
 
-            <div class="d-flex justify-content-end">
-                <small>{{ answer.date_of_creating }}</small>
+                <!--Answers to the comments-->
+                {% for answer in comment.answers.all %}
+                <div class="media mt-3">
+                    {% if comment.author.profile.photo %}
+                        <img class="d-flex mr-3 rounded-circle" src="{{ comment.author.profile.photo.url }}" alt="Text" style="width:60px; height:60px">
+                    {% else %}
+                        <img class="d-flex mr-3 rounded-circle" src="{% static 'img/users/user_profile_avatar.png' %}" alt="Text" style="width:60px; height:60px">
+                    {% endif %}
+                    <div class="media-body">
+                        <h6 class="mt-0">{{ answer.author }}</h6>
+                        <text>{{ answer.text }}</text>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <small>{{ answer.date_of_creating }}</small>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-primary btn-sm" id="add_form">Ответить</button>
+                    {% if user == comment.author or user.is_superuser %}
+                        <div>&thinsp;</div>
+                        <a href="{% url 'delete_comment' comment_id=comment.pk %}">
+                            <button type="button" class="btn btn-outline-danger btn-sm" id="del_comment">Удалить</button>
+                        </a>
+                    {% endif %}
+                </div>
+
+        <!--    Comment form-->
+        <!--        <div class="card-body">-->
+        <!--            <form id="form-container" method="POST">-->
+        <!--                {% csrf_token %}-->
+        <!--                <div class="bird-form">-->
+        <!--                    <div class="form-group">-->
+        <!--                        {{ answer_form.text }}-->
+        <!--                    </div>-->
+        <!--                </div>-->
+
+        <!--                <button type="submit" class="btn btn-primary btn-sm">Отправить</button>-->
+        <!--            </form>-->
+        <!--        </div>-->
             </div>
         </div>
-        {% endfor %}
-
-        <div class="d-flex justify-content-end">
-            <button type="button" onClick="GFG_Fun()" class="btn btn-outline-primary btn-sm" id="add_form">Ответить</button>
-<!--            <button type="button" onClick="GFG_Fun()" id="add_form">Ответить</button>-->
-<!--            <a id="add_form" href="#">Ответить</a>-->
-        </div>
-        <p id="my_form"></p>
-
-<!--    Comment form-->
-<!--        <div class="card-body">-->
-<!--            <form id="form-container" method="POST">-->
-<!--                {% csrf_token %}-->
-<!--                <div class="bird-form">-->
-<!--                    <div class="form-group">-->
-<!--                        {{ answer_form.text }}-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <button type="submit" class="btn btn-primary btn-sm">Отправить</button>-->
-<!--            </form>-->
-<!--        </div>-->
-    </div>
-</div>
-<hr>
+        <hr>
+    {% endif %}
 {% endfor %}

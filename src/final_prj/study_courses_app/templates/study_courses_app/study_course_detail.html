@@ -22,7 +22,9 @@
                     <li class="breadcrumb-item active" aria-current="page">{{ course.name }}</li>
                 </ol>
             </nav>
-            <img class="img-fluid rounded " src="{{ course.image.url }}" alt="">
+            <div class="text-center">
+                <img class="img-fluid rounded mx-auto" src="{{ course.image.url }}" alt="">
+            </div>
             <hr>
 
             <!--Course content-->
@@ -41,9 +43,7 @@
         <div class="col-md-4">
             <div class="card my-4">
                 <h5 class="card-header">Доп. инфа</h5>
-
                     <div class="card-body">
-
                         <h5 class="card-title">Обучение</h5>
                         {% if course.course_status == course.COMPLETED %}
                             <div class="d-grid">
@@ -66,27 +66,25 @@
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="to_archive" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                          <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
+                                      <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
 
-                                                <div class="modal-header">
+                                            <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel{{ post.slug }}">Поместить курс в архив</h5>
-                                                </div>
-                                    <!--            <form action="" method="POST" class="form-container">-->
-                                                    <div class="modal-body">
-                                                        <p>Вы действительно хотите поместить курс "{{ course.name }}" в архив?"</p>
-
-                                    <!--                    {% csrf_token %}-->
-                                    <!--                    {{ form.course.as_hidden }}-->
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <a href="{% url 'study_course_to_archive' course_id=course.pk %}"><button type="button" class="btn btn-success">В архив</button></a>
-                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Отмена</button>
-                                                    </div>
-                                    <!--            </form>-->
                                             </div>
-                                          </div>
+                            <!--            <form action="" method="POST" class="form-container">-->
+                                            <div class="modal-body">
+                                                <p>Вы действительно хотите поместить курс "{{ course.name }}" в архив?"</p>
+                            <!--                    {% csrf_token %}-->
+                            <!--                    {{ form.course.as_hidden }}-->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="{% url 'study_course_to_archive' course_id=course.pk %}"><button type="button" class="btn btn-success">В архив</button></a>
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Отмена</button>
+                                            </div>
+                            <!--            </form>-->
+                                        </div>
+                                      </div>
                                         </div>
                                 {% elif user in course.old_students.all %}
                                     <div class="alert-primary text-center p-2">Вы уже проходили данный курс</div>
@@ -98,18 +96,14 @@
                                     <button class="w-100 btn btn-outline-success btn-lg" type="button" disabled>Поступить на курс</button>
                                 </a>
                             </div><br>
-
                             <div class="alert alert-danger text-center" role="alert">Курс находится в разработке</div>
                         {% endif %}
-
                         <hr>
 
                         <h5 class="card-title">Авторы</h5>
                         {{ course.creator }}
                         <hr>
-
                     </div>
-
             </div>
         </div>
 

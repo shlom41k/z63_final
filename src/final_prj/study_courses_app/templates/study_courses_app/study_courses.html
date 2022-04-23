@@ -26,11 +26,6 @@
             <img src="{{ course.image.url }}" alt="" class="card-img-top">
             <div class="card-body">
               <h5 class="card-title">{{ course.name }}</h5>
-
-<!--              {% for tag in post.tag.all %}-->
-<!--                  <a href="{% url 'news_tag' tag.slug %}" class="mr-1 badge badge-info">#{{ tag }}</a>-->
-<!--              {% endfor %}-->
-
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a href="{% url 'study_course_detail' course_id=course.pk %}"
