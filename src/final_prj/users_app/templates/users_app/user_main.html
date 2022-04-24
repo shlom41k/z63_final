@@ -1,0 +1,138 @@
+{% extends 'templates/base.html' %}
+
+
+{% load static %}
+
+<!--Title-->
+{% block title %}{{ some_user.username }}{% endblock %}
+
+<!--Styles-->
+{% block add_styles %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
+.checked {
+  color: orange;
+}
+
+</style>
+
+{% endblock %}
+
+<!--Header-->
+{% block header %}
+{% endblock %}
+
+<!--Content-->
+{% block content %}
+
+<div class="container">
+    <div class="row">
+
+        <!--Left side block-->
+        <div class="col-md-4">
+            <div class="card my-4">
+                <h5 class="card-header text-center">Персональные данные</h5>
+                    <div class="card-body align-items-center">
+                        {% if not some_user.profile.photo %}
+                            <img src="{% static 'img/users/user_profile_avatar.png' %}" alt="" class="card-img-top mx-auto d-block">
+                        {% else %}
+                            <img class="rounded-circle mx-auto d-block" src="{{ some_user.profile.photo.url }}" alt="" width="300" height="300">
+                        {% endif %}
+                        <hr>
+
+                        <div class="card my-4 bg-light">
+                            <h5 class="text-center">{{ some_user.username }}</h5>
+                        </div>
+                        <hr>
+
+                        <!--Rating-->
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <hr>
+
+                        <div class="card my-3">
+                            <div class="p-2">
+                                <p class="lead">{{ some_user.first_name }} {{ some_user.last_name }}</p>
+                                <p class="lead">{{ some_user.email }}</p>
+                                {% if some_user.profile.city %}
+                                    <p class="lead">City: {{ some_user.profile.city }}</p>
+                                {% endif %}
+                                <hr>
+
+                                {% if some_user.profile.telegram_link or some_user.profile.vk_link or some_user.profile.instagram_link %}
+                                    <h5 class="card-title text-center bg-light">Contact info</h5>
+                                    {% if some_user.profile.telegram_link %}
+                                        <p class="lead">Telegram: {{ some_user.profile.telegram_link }}</p>
+                                    {% endif %}
+
+                                    {% if some_user.profile.vk_link %}
+                                        <p class="lead">VK: {{ some_user.profile.vk_link }}</p>
+                                    {% endif %}
+
+                                    {% if some_user.profile.instagram_link %}
+                                        <p class="lead">Instagram: {{ some_user.profile.instagram_link }}</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <!--Right side block-->
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb" class="mt-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'news_index' %}">Главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ some_user.first_name }} {{ some_user.last_name }}</li>
+                </ol>
+            </nav>
+            <hr>
+
+            <!--User posts-->
+            {% if some_user_posts %}
+                <div class="card my-4">
+                    <div class="p-2 rounded-3">
+                        <div class="d-flex align-items-center justify-content-around breadcrumb">
+                            <h3 class="card-title mr-auto">Посты пользователя {{ some_user.username }}</h3>
+                            <a href=""><button type="button" class="btn w-100 btn-sm btn-outline-secondary">Все авторские посты</button></a>
+                        </div>
+
+                        {% for post in some_user_posts %}
+                            <a href="{{ post.get_url }}"><p class="lead">{{ post.header_h1 }}</p></a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="card my-4">
+                    <div class="p-2 rounded-3 alert-info text-center">
+                        <p>У пользователя {{ some_user.username }} нет авторских постов.</p>
+                    </div>
+                </div>
+            {% endif %}
+            <hr>
+        </div>
+    </div>
+</div>
+{% endblock %}

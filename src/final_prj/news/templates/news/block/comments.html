@@ -33,7 +33,7 @@
 
             <div class="media-body">
                 <div class="d-flex">
-                  <div class="align-items-start"><h5 class="mt-0">{{ comment.author }}</h5></div>
+                  <div class="align-items-start"><h5 class="mt-0"><a href="{% url 'main_user' user_name=comment.author.username %}">{{ comment.author }}</a></h5></div>
                   <div class="justify-content-end ml-auto">{{ comment.date_of_creating }}</div>
                 </div>
                 {{comment.text}}
@@ -47,7 +47,7 @@
                         <img class="d-flex mr-3 rounded-circle" src="{% static 'img/users/user_profile_avatar.png' %}" alt="Text" style="width:60px; height:60px">
                     {% endif %}
                     <div class="media-body">
-                        <h6 class="mt-0">{{ answer.author }}</h6>
+                        <h6 class="mt-0"><a href="{% url 'main_user' user_name=comment.author.username %}">{{ answer.author }}</a></h6>
                         <text>{{ answer.text }}</text>
                     </div>
 

@@ -63,7 +63,7 @@
             <hr>
 
             <div class="d-flex">
-                <div class="mr-auto p-2 lead">Автор: {{ post.author }}</div>
+                <div class="mr-auto p-2 lead">Автор: <a href="{% url 'main_user' user_name=post.author.username %}">{{ post.author }}</a></div>
                 <div class="p-2">Опубликовано: {{ post.date_of_creating }}</div>
             </div>
             <hr>
