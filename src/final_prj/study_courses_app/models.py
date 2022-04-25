@@ -114,6 +114,7 @@ class Theme(models.Model):
     order = models.PositiveIntegerField(verbose_name="Theme Order", blank=True)
     description = models.TextField(verbose_name="Theme Description", blank=True)
     content = RichTextUploadingField(verbose_name="Theme Content")
+    sound = models.FileField(upload_to=f"courses/modules/lessons/themes/sounds/", verbose_name="Theme Sound", blank=True)
 
     def __str__(self):
         return f"{self.name}"

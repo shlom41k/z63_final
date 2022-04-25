@@ -116,7 +116,7 @@
                     <div class="p-2 rounded-3">
                         <div class="d-flex align-items-center justify-content-around breadcrumb">
                             <h3 class="card-title mr-auto">Посты пользователя {{ some_user.username }}</h3>
-                            <a href=""><button type="button" class="btn w-100 btn-sm btn-outline-secondary">Все авторские посты</button></a>
+                            <a href="{% url 'some_user_posts' user_name=some_user.username %}"><button type="button" class="btn w-100 btn-sm btn-outline-secondary">Все авторские посты</button></a>
                         </div>
 
                         {% for post in some_user_posts %}
