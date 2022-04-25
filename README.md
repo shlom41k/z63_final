@@ -1,5 +1,6 @@
 # Bumblebeeschool
 ***The web application is an educational platform for the online English language school (Bumblebeeschool).***
+<br> For more info see [description file.](https://github.com/shlom41k/z63_final/blob/main/Bumblebee%20school%20Django%20project.pdf)
 
 ## Main tools:
 ```
