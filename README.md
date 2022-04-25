@@ -1,2 +1,3 @@
-# z63_final
+# Bumblebeeschool
+<hr>
 This is my graduation project
