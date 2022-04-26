@@ -8,6 +8,7 @@
 - Django 4.0.3
 - Django-ckeditor 6.2.0
 - Django-taggit 2.1.0
+- PostgreSQL 14.2
 - Pillow 9.1.0
 - Bootstrap 5.0
 - HTML 5
