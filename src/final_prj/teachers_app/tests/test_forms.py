@@ -4,6 +4,8 @@ from teachers_app.models import Teacher
 from ckeditor_uploader.fields import RichTextUploadingField
 from teachers_app.forms import IndividualLessonApplicationForm
 
+print(f"Tests in '{__name__}' started")
+
 
 class TestIndividualLessonApplicationForm(TestCase):
 
@@ -94,3 +96,6 @@ class TestIndividualLessonApplicationForm(TestCase):
     def test_form_telegram_field_label(self):
         form = IndividualLessonApplicationForm()
         self.assertTrue(form.fields['telegram'].label == 'Telegram')
+
+
+print(f"Tests in '{__name__}' finished")

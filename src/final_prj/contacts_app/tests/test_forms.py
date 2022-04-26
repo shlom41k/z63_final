@@ -3,6 +3,9 @@ from django.test import TestCase
 from contacts_app.forms import FeedBackForm
 
 
+print(f"Tests in '{__name__}' started")
+
+
 class TestFeedBackForm(TestCase):
 
     def test_valid_data(self):
@@ -80,4 +83,7 @@ class TestFeedBackForm(TestCase):
 
         for field, (label, ) in self.test_true_fields.items():
             self.assertEqual(form.fields[field].label, label)
+
+
+print(f"Tests in '{__name__}' finished")
 

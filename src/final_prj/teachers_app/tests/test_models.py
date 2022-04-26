@@ -3,6 +3,8 @@ from django.test import TestCase
 from teachers_app.models import Teacher
 from ckeditor_uploader.fields import RichTextUploadingField
 
+print(f"Tests in '{__name__}' started")
+
 
 class TeacherModelTest(TestCase):
 
@@ -62,3 +64,6 @@ class TeacherModelTest(TestCase):
         teacher = Teacher.objects.get(id=1)
         # This will also fail if the urlconf is not defined.
         self.assertEquals(teacher.get_url(), f"/teachers/{teacher.slug}/")
+
+
+print(f"Tests in '{__name__}' finished")

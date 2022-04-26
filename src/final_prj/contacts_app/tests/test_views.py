@@ -1,6 +1,8 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from django.http.response import HttpResponseRedirect
+
+
+print(f"Tests in '{__name__}' started")
 
 
 class ContactsViewTest(TestCase):
@@ -21,4 +23,7 @@ class ContactsViewTest(TestCase):
 
             self.assertEqual(response.status_code, status_code)
             self.assertTemplateUsed(response, template)
+
+
+print(f"Tests in '{__name__}' finished")
 

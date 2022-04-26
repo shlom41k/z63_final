@@ -4,6 +4,8 @@ from django.urls import reverse
 from teachers_app.models import Teacher
 from ckeditor_uploader.fields import RichTextUploadingField
 
+print(f"Tests in '{__name__}' started")
+
 
 class TeachersViewTest(TestCase):
 
@@ -35,3 +37,6 @@ class TeachersViewTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'teachers_app/teacher_detail.html')
+
+
+print(f"Tests in '{__name__}' finished")

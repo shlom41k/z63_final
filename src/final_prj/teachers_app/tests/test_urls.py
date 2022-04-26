@@ -5,6 +5,8 @@ from teachers_app.models import Teacher
 from ckeditor_uploader.fields import RichTextUploadingField
 from teachers_app.views import TeachersView, TeacherDetailView
 
+print(f"Tests in '{__name__}' started")
+
 
 class TeachersUrlTest(TestCase):
 
@@ -28,3 +30,6 @@ class TeachersUrlTest(TestCase):
         teacher = Teacher.objects.get(id=1)
         url = reverse('teacher_detail', args=[teacher.slug, ])
         self.assertEqual(resolve(url).func.view_class, TeacherDetailView)
+
+
+print(f"Tests in '{__name__}' finished")
