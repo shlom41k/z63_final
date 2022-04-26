@@ -54,13 +54,14 @@
 
         <div class="tab-content">
             {% for theme in current_lesson.themes.all %}
-                <div class="tab-pane" id="{{ theme.name }}" role="tabpanel" aria-labelledby="home-tab">{{ theme.content|safe }}</div>
-                {% if theme.sound %}
-                    <p>Аудиоматериал:</p>
-                    <audio controls class="w-100">
-                        <source src="{{ theme.sound.url }}" type="audio/mpeg">
-                    </audio>
-                {% endif %}
+                <div class="tab-pane" id="{{ theme.name }}" role="tabpanel" aria-labelledby="home-tab">{{ theme.content|safe }}
+                    {% if theme.sound %}
+                        <p>Аудиоматериал:</p>
+                        <audio controls class="w-100">
+                            <source src="{{ theme.sound.url }}" type="audio/mpeg">
+                        </audio>
+                    {% endif %}
+                </div>
             {% endfor %}
         </div>
 
@@ -72,7 +73,6 @@
 
           // src='https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelement-and-player.min.js'
         </script>
-
     </div>
 </div>
 
