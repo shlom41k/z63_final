@@ -117,7 +117,7 @@ class ProfileForm(forms.ModelForm):
     """
     class Meta:
         model = Profile
-        fields = ["city", "telegram_link", "vk_link", "instagram_link"]
+        fields = ["city", "telegram_link", "vk_link", "instagram_link", "photo"]
         widgets = {
             "city": forms.TextInput(attrs={
                 "label": "City",
@@ -142,5 +142,11 @@ class ProfileForm(forms.ModelForm):
                 "class": "form-control",
                 "id": "instagram",
                 "placeholder": "@username",
+            }),
+            "photo": forms.FileInput(attrs={
+                "label": "User Avatar",
+                "class": "form-control",
+                "id": "photo",
+                "placeholder": "Выберите изображение",
             }),
         }

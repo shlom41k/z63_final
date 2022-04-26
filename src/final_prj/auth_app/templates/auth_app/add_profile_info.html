@@ -27,7 +27,7 @@
         <div class="col-12">
 
         <!--Profile form-->
-        <form class="form-signin" action="{% url 'add_profile' %}" method="POST">
+        <form class="form-signin" action="{% url 'add_profile' %}" method="POST" enctype="multipart/form-data">
 
           {% csrf_token %}
 
@@ -42,6 +42,11 @@
             <div class="col-sm-6">
               <label class="form-label">{{ user_form.last_name.label }}</label>
               {{ user_form.last_name }}
+            </div>
+
+             <div class="col-sm-12 py-2">
+              <label class="form-label">{{ profile_form.photo.label }} (optional)</label>
+              {{ profile_form.photo }}
             </div>
           </div>
           <br>
@@ -89,7 +94,7 @@
         </form>
       </div>
 
-</div>
+    </div>
 </div>
 
 {% endblock %}

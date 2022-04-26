@@ -18,7 +18,7 @@ class Post(models.Model):
     slug = models.SlugField(verbose_name="Slug", blank=True, unique=True)
     description = RichTextUploadingField(verbose_name="Description")
     content = RichTextUploadingField(verbose_name="Content")
-    image = models.ImageField(verbose_name="Image", blank=False)
+    image = models.ImageField(verbose_name="Image", upload_to="news/", blank=False)
     date_of_creating = models.DateField(verbose_name="Date of creating", default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="posts")
     tag = TaggableManager()

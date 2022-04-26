@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.core.validators import EmailValidator
 from django.dispatch import receiver
+from django.urls import reverse
 
 from ckeditor_uploader.fields import RichTextUploadingField
 from pytils.translit import slugify
@@ -35,6 +36,10 @@ class Teacher(models.Model):
         if not self.slug:
             self.slug = slugify(f"{self.first_name} {self.last_name}")
         super(self.__class__, self).save(*args, **kwargs)
+
+    # Get absolute url for teacher
+    def get_url(self):
+        return reverse("teacher_detail", args=[self.slug])
 
 
 class TeacherContactInfo(models.Model):

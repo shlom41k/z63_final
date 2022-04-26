@@ -45,6 +45,11 @@
                     Администрация отклонила публикации данного поста.<br>
                     Пожалуйста, обратитесь к администрации (используйте форму обратной связи).
                 </div>
+            {% elif post.status == post.CREATED %}
+                <div class="alert alert-primary text-center">
+                    В ближайшее время администрация рассмотрит возможность публикации данного поста.<br>
+                    Пожалуйста, ожидайте.
+                </div>
             {% endif %}
             <div class="text-center">
                 <img class="img-fluid rounded " src="{{ post.image.url }}" alt="">

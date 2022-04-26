@@ -29,7 +29,7 @@ class FeedBackView(View):
 
             # Send email
             try:
-                send_mail(f'От {name} | {subject}', message, from_email, ['ZerGey1994MU@mail.ru'])
+                send_mail(f'От {name} | {subject}', message, from_email, ['ZerGey1994MU@mail.ru', ])
             except BadHeaderError:
                 return HttpResponse('Невалидный заголовок')
 

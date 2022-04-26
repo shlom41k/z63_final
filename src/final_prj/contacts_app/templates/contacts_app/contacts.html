@@ -10,6 +10,7 @@
 {% block add_styles %}
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/features/">
     <link rel="stylesheet" href="{% static 'css/contacts_app/features.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contacts_app/contacts_style.css' %}">
 {% endblock %}
 
 <!--Header-->
@@ -22,24 +23,6 @@
 
 <!--Icons-->
 {% include './icons.html' %}
-
-<!--Add style-->
-<style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-</style>
-
 
 <div class="container" style="margin-bottom: 60px">
     <div class="row">

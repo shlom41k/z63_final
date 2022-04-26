@@ -12,7 +12,11 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ("text", )
         widgets = {
-            "text": forms.Textarea(attrs={"class": "form-control", "rows": 3, "cols": 40}),
+            "text": forms.Textarea(attrs={
+                "class": "form-control",
+                "rows": 3,
+                "cols": 40,
+            }),
         }
 
 
@@ -24,7 +28,10 @@ class CommentAnswerForm(forms.ModelForm):
         model = CommentAnswer
         fields = ("text", )
         widgets = {
-            "text": forms.Textarea(attrs={"class": "form-control", "rows": 1}),
+            "text": forms.Textarea(attrs={
+                "class": "form-control",
+                "rows": 1,
+            }),
         }
 
 
