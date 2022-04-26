@@ -13,6 +13,11 @@
 - Bootstrap 5.0
 - HTML 5
 - CSS 2.1
+- Docker 20.10.12
+```
+### Use commands below:
+```
+- docker-compose build
 ```
 
 ## Some screenshots:
