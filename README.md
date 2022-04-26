@@ -15,32 +15,38 @@
 - CSS 2.1
 - Docker 20.10.12
 ```
-### Use commands below:
-```
-- docker-compose build
-```
+## For application management use commands below:
+- ```docker-compose up --build``` - run project;
+- ```docker-compose down``` - stop project;
+<hr>
 
 ## Some screenshots:
 ## Main page
-![Main page](https://github.com/shlom41k/z63_final/blob/main/pictures/main_page.PNG)
+> 
+> ![Main page](https://github.com/shlom41k/z63_final/blob/main/pictures/main_page.PNG)
 
 ## Posts page, post detail page and comments
-![Post page](https://github.com/shlom41k/z63_final/blob/main/pictures/posts%20page.PNG)
-![Post detail page](https://github.com/shlom41k/z63_final/blob/main/pictures/post_detail.PNG)
-![Comments](https://github.com/shlom41k/z63_final/blob/main/pictures/post_detail_comments.PNG)
+
+> ![Post page](https://github.com/shlom41k/z63_final/blob/main/pictures/posts%20page.PNG)
+> ![Post detail page](https://github.com/shlom41k/z63_final/blob/main/pictures/post_detail.PNG)
+> ![Comments](https://github.com/shlom41k/z63_final/blob/main/pictures/post_detail_comments.PNG)
 
 ## Teachers page, teachers detail page and application form:
-![Teachers](https://github.com/shlom41k/z63_final/blob/main/pictures/teachers_page.PNG)
-![Teachers detail](https://github.com/shlom41k/z63_final/blob/main/pictures/teachers_detail.PNG)
-![Application](https://github.com/shlom41k/z63_final/blob/main/pictures/individual_lessinl_application.PNG)
+
+> ![Teachers](https://github.com/shlom41k/z63_final/blob/main/pictures/teachers_page.PNG)
+> ![Teachers detail](https://github.com/shlom41k/z63_final/blob/main/pictures/teachers_detail.PNG)
+> ![Application](https://github.com/shlom41k/z63_final/blob/main/pictures/individual_lessinl_application.PNG)
 
 ## Courses page, course detail page, course content page:
-![Courses](https://github.com/shlom41k/z63_final/blob/main/pictures/study_courses_page.PNG)
-![Course detail](https://github.com/shlom41k/z63_final/blob/main/pictures/study_course_detail_page.PNG)
-![Course content](https://github.com/shlom41k/z63_final/blob/main/pictures/course_content_page.PNG)
+
+> ![Courses](https://github.com/shlom41k/z63_final/blob/main/pictures/study_courses_page.PNG)
+> ![Course detail](https://github.com/shlom41k/z63_final/blob/main/pictures/study_course_detail_page.PNG)
+> ![Course content](https://github.com/shlom41k/z63_final/blob/main/pictures/course_content_page.PNG)
 
 ## User profile page:
-![Profile](https://github.com/shlom41k/z63_final/blob/main/pictures/user_profile_page.PNG)
+
+> ![Profile](https://github.com/shlom41k/z63_final/blob/main/pictures/user_profile_page.PNG)
 
 ## Feedback page:
-![Feedback](https://github.com/shlom41k/z63_final/blob/main/pictures/feedback_page.PNG)
+
+> ![Feedback](https://github.com/shlom41k/z63_final/blob/main/pictures/feedback_page.PNG)
